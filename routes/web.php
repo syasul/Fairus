@@ -9,3 +9,39 @@ Route::get('/', function () {
 Route::get('/detail', function () {
     return view('client.detail');
 });
+
+Route::get('/login-admin', function () {
+    return view('admin.login');
+});
+
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/Master-Fasilitas', function () {
+    return view('admin.masterFasilitas');
+});
+
+Route::get('/Master-Foto-Pembayaran', function () {
+    return view('admin.masterFotoPembayaran');
+});
+
+Route::get('/Master-Penghargaan', function () {
+    return view('admin.masterPenghargaan');
+});
+
+Route::get('/Master-Perumahan', function () {
+    return view('admin.masterPerumahan');
+});
+
+Route::get('/Master-Rumah', function () {
+    return view('admin.masterRumah');
+});
+
+Route::get('/Master-User', function () {
+    return view('admin.masterUser');
+});
+
+Route::get('/pesan', function () {
+    return view('admin.Pesan');
+});

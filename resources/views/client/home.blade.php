@@ -129,9 +129,9 @@
                     <div class="p-6">
                         <div class="font-medium text-xl lg:text-3xl mb-2">Alana Regency Gunung Sari</div>
                         <a href="detail.html"
-                            class="font-medium text-base text-dark border-b-2 border-primaryGrey md:xl">Show
-                            Detail <span class="inline-block"><img src="..{{ asset('images/ic-arrow-pg1.png')}}" alt="Arrow"
-                                    class="w-5 pl-2"></span></a>
+                        class="font-medium text-base text-dark border-b-2 border-primaryGrey md:xl">Show
+                        Detail <span class="inline-block"><img src="{{ asset('images/ic-arrow-pg1.png')}}" alt="Arrow"
+                                class="w-5 pl-2"></span></a>
                     </div>
                 </div>
                 <div class="rounded-lg overflow-hidden shadow-lg">
