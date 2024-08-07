@@ -14,7 +14,7 @@
 </style>
 @endsection
 @section('body')
-   <div class="flex">
+<div class="flex">
     @include('admin.partials.sidebar')
 
     <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
@@ -22,9 +22,45 @@
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6 text-bold">Pesan</h1>
+                <h1 class="text-3xl text-black pb-6 text-bold">Master User</h1>
 
-                <!-- Content goes here! 😁 -->
+                <div class="w-full mt-6 ">
+                    <div class="flex justify-between mb-5">
+                        <p class="text-xl pb-3 flex items-center">
+                            <i class="fas fa-list mr-3"></i> Pesan
+                        </p>
+                        <button @click="openModal = true" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            Toggle modal
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white overflow-auto">
+                        <table class="min-w-full bg-white">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="py-3 px-4 uppercase font-semibold text-sm text-center">First Name</th>
+                                    <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Last Name</th>
+                                    <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Email</th>
+                                    <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Phone Number</td>
+                                    <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Message</td>
+                                    <th class="py-3 px-4 uppercase font-semibold text-sm text-center">Date Created</td>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-700">
+                                <tr>
+                                    <td class="text-center py-3 px-4">First Name</td>
+                                    <td class="text-center py-3 px-4">Last Name</td>
+                                    <td class="text-center py-3 px-4">Email</td>
+                                    <td class="text-center py-3 px-4">Phone Number</td>
+                                    <td class="text-center py-3 px-4">Message</td>
+                                    <td class="text-center py-3 px-4">Date Created</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                </div>
             </main>
     
            

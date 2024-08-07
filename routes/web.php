@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,9 +39,7 @@ Route::get('/Master-Rumah', function () {
     return view('admin.masterRumah');
 });
 
-Route::get('/Master-User', function () {
-    return view('admin.masterUser');
-});
+Route::resource('/master-user', UserController::class);
 
 Route::get('/pesan', function () {
     return view('admin.Pesan');

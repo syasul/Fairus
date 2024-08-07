@@ -20,7 +20,10 @@ export default {
         midGrey: '#8492A7',
         lightYellow: 'F8F8F5',
         dark: '#282938',
-        bgJumboPg2: '#33000000'
+        bgJumboPg2: '#33000000',
+        redDelete: '#ef4444',
+        yellowUpdate: '#fbbf24',
+        blueAdd: '#2563eb',
       },
       screens: {
         '2xl': '1320px',
