@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,4 @@ Route::get('/Master-Rumah', function () {
 
 Route::resource('/master-user', UserController::class);
 
-Route::get('/pesan', function () {
-    return view('admin.Pesan');
-});
+Route::resource('/message', MessageController::class);

@@ -165,7 +165,8 @@
                 <h1 class="text-dark font-medium text-3xl lg:text-4xl">Siap Membantu Setiap Saat</h1>
             </div>
             <div class="value-content w-full mt-10">
-                <form action="#" class="">
+                <form action="{{ route('message.store') }}" method="POST">
+                    @csrf
                     <div class="flex flex-wrap -mx-3 mb-4">
                         <div class="w-full md:w-1/2 px-3 mb-3 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -174,7 +175,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="grid-first-name" type="text" placeholder="First Name">
+                                id="grid-first-name" type="text" placeholder="First Name" name="firstName">
                             <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                         </div>
                         <div class="w-full md:w-1/2 px-3">
@@ -184,7 +185,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-last-name" type="text" placeholder="Last Name">
+                                id="grid-last-name" type="text" placeholder="Last Name" name="lastName">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-3">
@@ -195,7 +196,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="grid-email" type="email" placeholder="Email">
+                                id="grid-email" type="email" placeholder="Email" name="email">
                             <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                         </div>
                         <div class="w-full md:w-1/2 px-3">
@@ -205,7 +206,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-phone" type="number" placeholder="+62">
+                                id="grid-phone" type="number" placeholder="+62" name="phoneNumber">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-3">
@@ -216,7 +217,7 @@
                             </label>
                             <textarea
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="grid-message" placeholder="Message"></textarea>
+                                id="grid-message" placeholder="Message" name="message"></textarea>
                         </div>
                     </div>
                     <div class="flex items-center mb-6">
