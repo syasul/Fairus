@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\FotoPembayaranController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\PenghargaanController;
+use App\Http\Controllers\PerumahanController;
+use App\Http\Controllers\RumahController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,34 +17,17 @@ Route::get('/detail', function () {
     return view('client.detail');
 });
 
-Route::get('/login-admin', function () {
-    return view('admin.login');
-});
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-});
+Route::resource('/dashboard', DashboardController::class);
 
-Route::get('/Master-Fasilitas', function () {
-    return view('admin.masterFasilitas');
-});
+Route::resource('/master-fasilitas', FasilitasController::class);
 
-Route::get('/Master-Foto-Pembayaran', function () {
-    return view('admin.masterFotoPembayaran');
-});
+Route::resource('/master-foto-pembayaran', FotoPembayaranController::class);
 
-Route::get('/Master-Penghargaan', function () {
-    return view('admin.masterPenghargaan');
-});
+Route::resource('/master-penghargaan', PenghargaanController::class);
 
-Route::get('/Master-Perumahan', function () {
-    return view('admin.masterPerumahan');
-});
+Route::resource('/master-perumahan', PerumahanController::class);
 
-Route::get('/Master-Rumah', function () {
-    return view('admin.masterRumah');
-});
-
-Route::resource('/master-user', UserController::class);
+Route::resource('/master-rumah', RumahController::class);
 
 Route::resource('/message', MessageController::class);

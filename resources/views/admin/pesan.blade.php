@@ -33,7 +33,7 @@
                 <div class="w-full mt-6">
                     <div class="flex justify-between mb-5">
                         <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-list mr-3"></i> Table Message
+                            <i class="ri-list-check mr-2"></i> Table Example
                         </p>
                         
                     </div>
