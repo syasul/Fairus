@@ -55,7 +55,7 @@
                                 <tr>
                                     <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
                                     <td class="text-center py-3 px-4">{{ $user->username }}</td>
-                                    <td class="text-center py-3 px-4">{{ $user->password }}</td>
+                                    <td class="text-center py-3 px-4">******</td> <!-- Hide password in table -->
                                     <td class="text-center py-3 px-4">
                                         <div class="flex items-center justify-center gap-3">
                                             <button data-modal-toggle="edit-user-modal-{{ $user->id }}" class="bg-yellow-500 text-white px-2 py-1 rounded-lg">
@@ -100,7 +100,7 @@
                     </div>
                     <div>
                         <label for="password" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Password</label>
-                        <input type="text" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Password" required>
+                        <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Password" required>
                     </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Add User
@@ -132,12 +132,12 @@
                     </div>
                     <div>
                         <label for="password" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Password</label>
-                        <input type="text" name="password" id="password" value="{{ $user->password }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Password" required>
+                        <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Password">
                     </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Update User
                     </button>
-                </form>                           
+                </form>
             </div>
         </div>
     </div>
@@ -157,19 +157,21 @@
                 <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-user.destroy', $user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <p class="text-sm text-gray-900 dark:text-white">Are you sure you want to delete this user?</p>
-                    <button type="submit" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                        Delete User
-                    </button>
+                    <p class="text-sm text-gray-700 dark:text-gray-400">Are you sure you want to delete this user?</p>
+                    <div class="flex gap-4">
+                        <button type="submit" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                            Delete
+                        </button>
+                        <button type="button" class="w-full text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800" data-modal-toggle="delete-user-modal-{{ $user->id }}">
+                            Cancel
+                        </button>
+                    </div>
                 </form>
-                
-                
             </div>
         </div>
     </div>
     @endforeach
 </div>
-
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 @endsection
