@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('saless', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // The section name, e.g., 'home', 'aboutMe'
+            $table->string('name')->unique(); // The section name, e.g., 'home', 'aboutMe'
             $table->text('content')->nullable(); // Content for the section
             $table->text('subcontent')->nullable(); // Subcontent for additional fields like subtext
             $table->text('description')->nullable(); // Description or additional content

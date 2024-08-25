@@ -13,6 +13,9 @@ class Sales extends Model
      *
      * @var array<int, string>
      */
+
+    protected $table = 'saless';
+
     protected $fillable = [
         'name',
         'content',
@@ -26,8 +29,4 @@ class Sales extends Model
      *
      * @return string
      */
-    public function getImageUrlAttribute()
-    {
-        return $this->image_path ? asset('storage/' . $this->image_path) : null;
-    }
 }

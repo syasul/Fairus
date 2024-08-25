@@ -19,7 +19,8 @@ Route::get('/detail', function () {
     return view('client.detail');
 });
 
-Route::resource('/dashboard', DashboardController::class);
+// Route for showing the dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::put('/dashboard/{section}', [DashboardController::class, 'update'])->name('update.section');
 
 Route::resource('/master-fasilitas', FasilitasController::class);

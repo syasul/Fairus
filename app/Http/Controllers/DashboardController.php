@@ -4,36 +4,63 @@ namespace App\Http\Controllers;
 
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     public function index(): View
     {
+        $homeSection = Sales::where('name', 'home')->first();
+        $aboutMeSection = Sales::where('name', 'aboutMe')->first();
 
-        return view('admin.dashboard');
+        return view('admin.dashboard', compact('homeSection', 'aboutMeSection'));
     }
 
     public function update(Request $request, $section)
     {
-        // Find the section by name or create a new one if it doesn't exist
-        $sectionContent = Sales::firstOrNew(['name' => $section]);
-
-        // Update the section's content
-        $sectionContent->content = $request->input('content');
-        $sectionContent->subcontent = $request->input('subcontent');
-        $sectionContent->description = $request->input('description');
-
-        // Handle the image upload if provided
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/sales');
-            $sectionContent->image_path = $imagePath;
+        // Validasi section
+        if (!in_array($section, ['home', 'aboutMe'])) {
+            return redirect()->back()->with('alert', 'Invalid section.');
         }
 
-        // Save the changes to the database
+        // Validasi request data
+        $validatedData = $request->validate([
+            'content' => 'nullable|string',
+            'subcontent' => 'nullable|string',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Temukan atau buat baru section
+        $sectionContent = Sales::firstOrNew(['name' => $section]);
+
+        // Update content
+        $sectionContent->content = $validatedData['content'] ?? $sectionContent->content;
+        $sectionContent->subcontent = $validatedData['subcontent'] ?? $sectionContent->subcontent;
+        $sectionContent->description = $validatedData['description'] ?? $sectionContent->description;
+
+        // Handle image upload
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($sectionContent->image_path && Storage::exists('public/' . $sectionContent->image_path)) {
+                Storage::delete('public/' . $sectionContent->image_path);
+            }
+
+            // Simpan gambar baru
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('public/Sales', $imageName);
+
+            // Simpan path gambar ke database
+            $sectionContent->image_path = 'Sales/' . $imageName;
+        }
+
+        // Simpan perubahan ke database
         $sectionContent->save();
 
-        // Redirect back with a success message
+        // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Section updated successfully!');
     }
 }
