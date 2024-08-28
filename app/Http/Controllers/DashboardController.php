@@ -41,7 +41,6 @@ class DashboardController extends Controller
         $sectionContent->description = $validatedData['description'] ?? $sectionContent->description;
 
         // Handle image upload
-        // Handle image upload
         if ($request->hasFile('image')) {
             // Hapus gambar lama jika ada
             if ($sectionContent->image_path && Storage::exists('public/' . $sectionContent->image_path)) {

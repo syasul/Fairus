@@ -27,16 +27,16 @@
                                     class="mx-8 flex py-2 text-base font-medium text-dark group-hover:text-primary ">Beranda</a>
                             </li>
                             <li class="group">
-                                <a href="#about"
+                                <a href="#aboutMe"
                                     class="mx-8 flex py-2 text-base font-medium text-dark group-hover:text-primary ">Tentang
                                     Saya</a>
                             </li>
                             <li class="group">
-                                <a href="#portfolio"
+                                <a href="#proyek"
                                     class="mx-8 flex py-2 text-base font-medium text-dark group-hover:text-primary">Proyek</a>
                             </li>
                             <li class="group">
-                                <a href="#clients"
+                                <a href="#contact"
                                     class="mx-8 flex py-2 text-base font-medium text-dark group-hover:text-primary">Hubungi
                                     Saya</a>
                             </li>
@@ -52,26 +52,17 @@
     <section id="home" class="pt-36 bg-lightGrey pb-36">
         <div class="container">
             <div class="flex flex-wrap">
-                <div class="w-full self-center px-4 lg:w-1/2 lg:self-center">
-                    <h4 class="text-base font-dark md:text-xl uppercase">Hi, I am Fairus Permatasari</h4>
-                    <h1 class="font-bold text-dark text-4xl lg:text-6xl">I Work as <span class="text-primaryGrey">Sales
-                            Marketing</span> in a
-                        Company.</h1>
-                    <p class="text-dark mt-2 leading-relaxed text-medium mb-10 text-lg lg:text-2xl">Lorem ipsum dolor
-                        sit amet, consectetur
-                        adipiscing
-                        elit.
-                        Suspendisse
-                        varius
-                        enim in eros
-                        elementum tristique.</p>
+                <div class="w-full self-center px-4 lg:w-1/2 lg:self-center" id="homeDisplay">
+                    <h4 class="text-base font-dark md:text-xl uppercase">{{ $homeSection->content ?? 'Hi, I am Fairus Permatasari' }}</h4>
+                    <h1 class="font-bold text-dark text-4xl lg:text-6xl" id="homeSubtitle">{{ $homeSection->subcontent ?? 'I Work as Sales Marketing in a Company.' }}</h1>
+                    <p class="text-dark mt-2 leading-relaxed text-medium mb-10 text-lg lg:text-2xl">{{ $homeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.' }}</p>
                     <a href="#" class="text-base font-medium bg-primaryGrey px-8 py-3 text-white rounded-md ">Get
                         In
                         Touch</a>
                 </div>
                 <div class="w-full self-end px-4 md:w-1/2">
                     <div class="mt-10 lg:mt-0 lg:mr-0">
-                        <img src="{{ asset('images/frame-foto-profile1-pg1.png')}}" alt="" srcset="" class="w-full mx-auto">
+                        <img src="{{ asset('storage/' . ($homeSection->image_path ?? 'images/default-home-image.png')) }}" alt="Home Image" class="w-full max-h-72 rounded">
                     </div>
                 </div>
             </div>
@@ -83,33 +74,13 @@
             <div class="flex flex-wrap">
                 <div class="w-full self-center px-4 md:w-full lg:w-1/3 lg:self-start">
                     <div class="mt-10 md:mt-0 md:ml-0 lg:mt-0 lg:ml-0">
-                        <img src="{{ asset('images/frame-foto-profile2-pg1.png')}}" class="mx-auto" alt="" srcset="">
+                        <img src="{{ asset('storage/' . ($aboutMeSection->image_path ?? 'images/default-aboutme-image.png')) }}" alt="About Me Image" class="w-full rounded">
                     </div>
                 </div>
                 <div class="w-full self-center mt-10 px-4 md:w-full lg:mt-0 lg:w-2/3 lg:self-start">
-                    <h4 class="text-primaryGrey font-semibold text-lg uppercase">TENTANG SAYA</h4>
-                    <h1 class="font-medium text-3xl lg:text-4xl">Sales Marketing Profesional, Meningkatkan Penjualan
-                        dan
-                        Brand
-                        Awareness</h1>
-                    <p class="text-base text-dark mt-2 leading-relaxed md:text-lg lg:mt-5">Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipiscing elit. Fusce varius
-                        faucibus massa sollicitudin
-                        amet augue. Nibh metus a semper purus mauris duis. Lorem eu neque, tristique quis duis. Nibh
-                        scelerisque ac adipiscing velit non nulla in amet pellentesque.
-                        <br>
-                        <br>
-                        Sit turpis pretium eget maecenas. Vestibulum dolor mattis consectetur eget commodo vitae. Amet
-                        pellentesque sit pulvinar lorem mi a, euismod risus r.consectetur
-                        adipiscing elit. Fusce varius
-                        faucibus massa sollicitudin
-                        amet augue. Nibh metus a semper purus mauris duis. Lorem eu neque, tristique quis duis. Nibh
-                        scelerisque ac adipiscing velit non nulla in amet pellentesque.
-
-
-                    </p>
-
+                    <h4 class="text-primaryGrey font-semibold text-lg uppercase">{{ $aboutMeSection->content ?? 'About Me' }}</h4>
+                    <h1 class="font-medium text-3xl lg:text-4xl mt-2">{{ $aboutMeSection->subcontent ?? 'Professional Sales Marketing' }}</h1>
+                    <p class="text-base text-dark mt-4 leading-relaxed md:text-lg">{{ $aboutMeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius faucibus massa sollicitudin amet augue.' }}</p>
                 </div>
             </div>
         </div>
@@ -262,6 +233,26 @@
             </div>
         </div>
     </footer>
+    <script>
+        var homeTitle = document.getElementById('homeTitle');
+        var homeSubtitle = document.getElementById('homeSubtitle');
 
+        function colorWords(element, color1, color2) {
+            var words = element.innerHTML.split(' ');
+
+            if (words.length >= 5) {
+                words[3] = '<span style="color: #96B6C5;">' + words[3] + '</span>';
+                words[4] = '<span style="color: #96B6C5;">' + words[4] + '</span>';
+            }
+
+            element.innerHTML = words.join(' ');
+        }
+
+
+        if (homeSubtitle) {
+            colorWords(homeSubtitle, 'blue', 'blue');
+        }
+    </script>
+    
     <script src="{{ asset('js/hamburger.js')}}"></script>
 @endsection

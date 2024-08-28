@@ -8,12 +8,11 @@ use App\Http\Controllers\PenghargaanController;
 use App\Http\Controllers\PerumahanController;
 use App\Http\Controllers\RumahController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('client.home');
-});
+Route::resource('/', HomeController::class);
 
 Route::get('/detail', function () {
     return view('client.detail');
