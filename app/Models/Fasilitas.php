@@ -21,4 +21,21 @@ class Fasilitas extends Model
     {
         return $this->belongsToMany(Perumahan::class, 'fasilitas_perumahan', 'id_fasilitas', 'id_perumahan');
     }
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // Event listener saat akan menghapus fasilitas
+        static::deleting(function ($fasilitas) {
+            // Hapus relasi di tabel pivot
+            $fasilitas->perumahan()->detach();
+
+            // Cek jika tidak ada perumahan yang terkait, maka fasilitas bisa dihapus
+            if ($fasilitas->perumahan()->count() === 0) {
+                $fasilitas->delete(); // Hapus fasilitas jika tidak terhubung dengan perumahan manapun
+            }
+        });
+    }
 }

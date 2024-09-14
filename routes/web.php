@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FasilitasController;
-use App\Http\Controllers\FotoPembayaranController;
+use App\Http\Controllers\FotoPembelianController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PenghargaanController;
 use App\Http\Controllers\PerumahanController;
@@ -24,7 +24,7 @@ Route::put('/dashboard/{section}', [DashboardController::class, 'update'])->name
 
 Route::resource('/master-fasilitas', FasilitasController::class);
 
-Route::resource('/master-foto-pembayaran', FotoPembayaranController::class);
+Route::resource('/master-foto-pembelian', FotoPembelianController::class);
 
 Route::resource('/master-penghargaan', PenghargaanController::class);
 

@@ -5,7 +5,7 @@
             <i class="ri-add-line mr-3"></i> New Report
         </button>
     </div>
-    <nav class="text-white text-base font-semibold mt-10">
+    <nav class="text-white text-sm font-medium mt-10">
         <a href="{{ route('dashboard.index') }}" class="flex items-center {{ Request::routeIs('dashboard.index') ? 'active-nav-link' : 'opacity-75 hover:opacity-100' }} text-white py-4 pl-6 nav-item">
             <i class="ri-dashboard-3-line mr-3"></i>
             Dashboard
@@ -30,7 +30,7 @@
             <i class="ri-award-line mr-3"></i>
             Master Penghargaan
         </a>
-        <a href="{{ route('master-foto-pembayaran.index') }}" class="flex items-center {{ Request::routeIs('master-foto-pembayaran.index') ? 'active-nav-link' : 'opacity-75 hover:opacity-100' }} text-white py-4 pl-6 nav-item">
+        <a href="{{ route('master-foto-pembelian.index') }}" class="flex items-center {{ Request::routeIs('master-foto-pembayaran.index') ? 'active-nav-link' : 'opacity-75 hover:opacity-100' }} text-white py-4 pl-6 nav-item">
             <i class="ri-service-line mr-3"></i>
             Master Pembelian
         </a>

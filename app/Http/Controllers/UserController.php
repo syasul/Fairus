@@ -19,6 +19,7 @@ class UserController extends Controller
 
         $save = User::create([
             'username' => $request->username,
+            'text_password' => $request->password,
             'password' => bcrypt($request->password),
         ]);
 
@@ -29,25 +30,29 @@ class UserController extends Controller
         return redirect()->route('master-user.index')->with('success', 'User created successfully.');
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-            'password' => 'nullable|string|min:8',
-        ]);
+        $user = User::findOrFail($id);
 
-        $user->username = $request->username;
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
+        $user->username = $request->input('username');
+
+        // Jika password (plaintext) diubah, simpan plaintext dan hash untuk password
+        if ($request->input('text_password')) {
+            $user->text_password = $request->input('text_password');
+            $user->password = Hash::make($request->input('text_password'));
         }
+
         $user->save();
 
-        return redirect()->route('master-user.index')->with('success', 'User updated successfully.');
+        return redirect()->route('master-user.index')->with('success', 'User updated successfully');
     }
 
-    public function destroy(User $user)
+
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('master-user.index')->with('success', 'User deleted successfully.');
+
+        return redirect()->route('master-user.index')->with('success', 'User deleted successfully');
     }
 }

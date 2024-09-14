@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index(): View
     {
         $homeSection = Sales::where('name', 'home')->first();
-        $aboutMeSection = Sales::where('name', 'aboutMeSection')->first();
+        $aboutMeSection = Sales::where('name', 'aboutMe')->first();
 
         return view('client.home', compact('homeSection', 'aboutMeSection'));
     }

@@ -2,7 +2,7 @@
 @section('head')
 <title>Fairus | Admin Page</title>
 <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css" />
+
 <style>
     .font-family-karla { font-family: karla; }
     .bg-sidebar { background: #3d68ff; }
@@ -29,6 +29,15 @@
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6 text-bold">Master User</h1>
+                @if(session('success'))
+                    <div class="bg-green-500 text-white p-4 rounded mb-4">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('alert'))
+                    <div class="bg-yellow-500 text-white p-4 rounded mb-4">
+                        {{ session('alert') }}
+                    </div>
+                @endif
 
                 <div class="w-full mt-6">
                     <div class="flex justify-between mb-5">
@@ -55,7 +64,7 @@
                                 <tr>
                                     <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
                                     <td class="text-center py-3 px-4">{{ $user->username }}</td>
-                                    <td class="text-center py-3 px-4">******</td> <!-- Hide password in table -->
+                                    <td class="text-center py-3 px-4">{{ $user->text_password }}</td>
                                     <td class="text-center py-3 px-4">
                                         <div class="flex items-center justify-center gap-3">
                                             <button data-modal-toggle="edit-user-modal-{{ $user->id }}" class="bg-yellow-500 text-white px-2 py-1 rounded-lg">
@@ -126,18 +135,22 @@
                 <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-user.update', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+                
+                    <!-- Field untuk username -->
                     <div>
-                        <label for="username" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Username</label>
-                        <input type="text" name="username" id="username" value="{{ $user->username }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Username" required>
+                        <label for="username" class="text-sm font-medium text-gray-900 block mb-2">Username</label>
+                        <input type="text" name="username" id="username" value="{{ $user->username }}" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 w-full" required>
                     </div>
+                
+                    <!-- Field untuk text_password -->
                     <div>
-                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Password</label>
-                        <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Password">
+                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2">Password (plaintext)</label>
+                        <input type="text" name="text_password" id="password" value="{{ $user->text_password }}" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 w-full">
                     </div>
-                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Update User
-                    </button>
+                
+                    <button type="submit" class="w-full bg-blue-700 text-white p-2.5 rounded-lg">Update User</button>
                 </form>
+                
             </div>
         </div>
     </div>
@@ -157,20 +170,16 @@
                 <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-user.destroy', $user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <p class="text-sm text-gray-700 dark:text-gray-400">Are you sure you want to delete this user?</p>
-                    <div class="flex gap-4">
-                        <button type="submit" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                            Delete
-                        </button>
-                        <button type="button" class="w-full text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800" data-modal-toggle="delete-user-modal-{{ $user->id }}">
-                            Cancel
-                        </button>
-                    </div>
+                    
+                    <p>Are you sure you want to delete this user?</p>
+                    <button type="submit" class="bg-red-500 text-white p-2.5 rounded-lg">Delete User</button>
                 </form>
+                
             </div>
         </div>
     </div>
     @endforeach
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>

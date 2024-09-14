@@ -16,13 +16,22 @@
 @section('body')
 <div class="flex">
     @include('admin.partials.sidebar')
-
     <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
         @include('admin.partials.header')
     
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6 text-bold">Master Fasilitas</h1>
+
+                @if(session('success'))
+                    <div class="bg-green-500 text-white p-4 rounded mb-4">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('alert'))
+                    <div class="bg-yellow-500 text-white p-4 rounded mb-4">
+                        {{ session('alert') }}
+                    </div>
+                @endif
 
                 <div class="w-full mt-6">
                     <div class="flex justify-between mb-5">
@@ -120,16 +129,17 @@
                             <i class="ri-close-line"></i>
                         </button>
                     </div>
-                    <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-fasilitas.store') }}" method="POST" enctype="multipart/form-data">
-                        @method('PUT')
+                    <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-fasilitas.update', $fasilita->id_fasilitas) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div>
+                            <img src="{{ asset('storage/Facility/' . $fasilita->gambar_fasilitas) }}" alt="Image Facility" class="w-full h-auto mb-4 rounded-lg">
                             <label for="gambar_fasilitas" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Image Fasilitas</label>
-                            <input type="file" name="gambar_fasilitas" id="gambar_fasilitas" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white" placeholder="Image URL" required>
+                            <input type="file" name="gambar_fasilitas" id="gambar_fasilitas" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white" placeholder="Image URL" >
                         </div>
                         <div>
                             <label for="nama_fasilitas" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Nama Fasilitas</label>
-                            <input type="text" name="nama_fasilitas" id="nama_fasilitas" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white" placeholder="Nama Fasilitas" required>
+                            <input type="text" value="{{ old('nama_fasilitas', $fasilita->nama_fasilitas) }}" name="nama_fasilitas" id="nama_fasilitas" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white" placeholder="Nama Fasilitas" required>
                         </div>
                        
                         <div class="flex justify-center">
@@ -140,10 +150,8 @@
                 </div>
             </div>
         </div>
-        @endforeach
 
         <!-- Delete Fasilitas Modal -->
-        @foreach ($fasilitas as $fasilita)
         <div id="delete-fasilitas-modal-{{ $fasilita->id_fasilitas }}" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
             <div class="relative w-full max-w-md px-4 h-full md:h-auto">
                 <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
@@ -168,6 +176,7 @@
         </div>
         @endforeach
     </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

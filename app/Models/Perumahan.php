@@ -17,38 +17,40 @@ class Perumahan extends Model
         'nama_perumahan',
         'deskripsi_singkat',
         'gambar_jumbotron',
-        'about_perumahan_title',
         'about_perumahan_sub_title',
         'about_perumahan_content',
         'about_perumahan_image',
-        'alasan_perumahan_title',
-        'alasan_perumahan_sub_title',
         'alasan_perumahan_content',
         'about_perumahan_image1',
         'about_perumahan_image2',
         'fasilitas_perumahan_title',
-        'fasilitas_perumahan_subtitle',
-        'maps_perumahan_title',
         'maps_perumahan_sub_title',
         'maps_perumahan_content',
         'maps_perumahan_image',
-        'rumah_perumahan_title',
-        'rumah_perumahan_subtitle',
         'pembayaran_perumahan_title',
-        'pembayaran_perumahan_subtitle',
         'pembayaran_perumahan_content',
         'penghargaan_title',
-        'gallery_perumahan_title',
-        'gallery_perumahan_subtitle',
     ];
+
+    public function fasilitas()
+    {
+        return $this->belongsToMany(Fasilitas::class, 'fasilitas_perumahan', 'id_perumahan', 'id_fasilitas');
+    }
+
 
     public function rumah()
     {
         return $this->hasMany(Rumah::class, 'id_perumahan', 'id_perumahan');
     }
 
-    public function fasilitas()
+    public static function boot()
     {
-        return $this->belongsToMany(Fasilitas::class, 'fasilitas_perumahan', 'id_perumahan', 'id_fasilitas');
+        parent::boot();
+
+        // Event listener saat akan menghapus perumahan
+        static::deleting(function ($perumahan) {
+            // Hapus relasi di tabel pivot
+            $perumahan->fasilitas()->detach();
+        });
     }
 }

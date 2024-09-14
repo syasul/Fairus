@@ -3,9 +3,8 @@
 @section('head')
 <title>Fairus | Admin Page</title>
 <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css" />
+
 <style>
-    .font-family-karla { font-family: karla; }
     .bg-sidebar { background: #3d68ff; }
     .cta-btn { color: #3d68ff; }
     .upgrade-btn { background: #1947ee; }
@@ -29,7 +28,15 @@
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6 text-bold">Master Penghargaan</h1>
-
+                @if(session('success'))
+                    <div class="bg-green-500 text-white p-4 rounded mb-4">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('alert'))
+                    <div class="bg-yellow-500 text-white p-4 rounded mb-4">
+                        {{ session('alert') }}
+                    </div>
+                @endif
                 <div class="w-full mt-6">
                     <div class="flex justify-between mb-5">
                         <p class="text-xl pb-3 flex items-center">
@@ -136,7 +143,7 @@
                     </div>                
                     <div>
                         <label for="nameAchivement" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Name Achivement</label>
-                        <input type="text" name="imageAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                        <input type="text" value="{{ old('nameAchivement', $penghargaan->nameAchivement) }}" name="nameAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
 
                     </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

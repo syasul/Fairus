@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('username')->unique(); // Menambahkan kolom username
+            $table->string('text_password');
             $table->string('email')->unique()->nullable(); // Email bisa menjadi nullable jika tidak dibutuhkan
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

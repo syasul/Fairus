@@ -37,6 +37,8 @@
                     </div>
                 @endif
 
+                
+
                 <!-- Home Section -->
                 <section id="home" class="pt-36 bg-lightGrey pb-36 rounded-xl">
                     <div class="container mx-auto">
@@ -75,7 +77,7 @@
                             <!-- Image Content -->
                             <div class="w-full lg:w-1/2 px-4 mt-10 lg:mt-0">
                                 <div class="relative">
-                                    <img src="{{ asset('storage/' . ($homeSection->image_path ?? 'images/default-home-image.png')) }}" alt="Home Image" class="w-full max-h-72 rounded">
+                                    <img src="{{ asset('storage/' . ($homeSection->image_path ?? 'images/frame-foto-profile1-pg1.png')) }}" alt="Home Image" class="w-full max-h-72 rounded">
                                     <button onclick="toggleEditForm('homeImage')" class="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded">
                                         <i class="ri-edit-2-line"></i>
                                     </button>
@@ -102,7 +104,7 @@
                             <!-- Image Content -->
                             <div class="w-full lg:w-1/3 px-4">
                                 <div class="relative">
-                                    <img src="{{ asset('storage/' . ($aboutMeSection->image_path ?? 'images/default-aboutme-image.png')) }}" alt="About Me Image" class="w-full rounded">
+                                    <img src="{{ asset('storage/' . ($aboutMeSection->image_path ?? 'images/frame-foto-profile2-pg1.png')) }}" alt="About Me Image" class="w-full rounded">
                                     <button onclick="toggleEditForm('aboutMeImage')" class="absolute top-2 right-2 bg-blue-500 text-white px-2 py-1 rounded">
                                         <i class="ri-edit-2-line"></i>
                                     </button>

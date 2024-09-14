@@ -10,12 +10,17 @@ return new class extends Migration
     {
         Schema::create('fasilitas_perumahan', function (Blueprint $table) {
             $table->id();
+
+            // Foreign key ke tabel 'perumahan'
             $table->foreignId('id_perumahan')
-                ->constrained('perumahan')
-                ->onDelete('cascade');
+                ->constrained('perumahan') // Referensi ke tabel 'perumahan'
+                ->onDelete('cascade'); // Hapus relasi jika perumahan dihapus
+
+            // Foreign key ke tabel 'fasilitas'
             $table->foreignId('id_fasilitas')
-                ->constrained('fasilitas')
-                ->onDelete('cascade');
+                ->constrained('fasilitas') // Referensi ke tabel 'fasilitas'
+                ->onDelete('cascade'); // Hapus relasi jika fasilitas dihapus
+
             $table->timestamps();
         });
     }

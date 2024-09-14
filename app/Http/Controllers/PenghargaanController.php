@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penghargaan;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class PenghargaanController extends Controller
@@ -14,7 +15,7 @@ class PenghargaanController extends Controller
         return view('admin.masterPenghargaan', compact('penghargaans'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'imageAchivement' => 'required|image|mimes:jpeg,jpg,png|max:2048',

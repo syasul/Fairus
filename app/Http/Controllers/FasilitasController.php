@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Fasilitas;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
 class FasilitasController extends Controller
@@ -14,7 +15,7 @@ class FasilitasController extends Controller
         return view('admin.masterFasilitas', compact('fasilitas'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'gambar_fasilitas' => 'required|image|mimes:jpeg,jpg,png|max:2048',
@@ -35,14 +36,14 @@ class FasilitasController extends Controller
         return redirect()->route('master-fasilitas.index')->with('success', 'Fasilitas created successfully.');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_fasilitas)
     {
         $request->validate([
             'gambar_fasilitas' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'nama_fasilitas' => 'required|string|max:255',
         ]);
 
-        $fasilitas = Fasilitas::findOrFail($id);
+        $fasilitas = Fasilitas::findOrFail($id_fasilitas);
 
         if ($request->hasFile('gambar_fasilitas')) {
             // Upload new image
@@ -68,9 +69,9 @@ class FasilitasController extends Controller
         return redirect()->route('master-fasilitas.index')->with('success', 'Fasilitas updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy($id_fasilitas)
     {
-        $fasilitas = Fasilitas::findOrFail($id);
+        $fasilitas = Fasilitas::findOrFail($id_fasilitas);
 
         // Delete image
         Storage::delete('public/Facility/' . $fasilitas->gambar_fasilitas);
