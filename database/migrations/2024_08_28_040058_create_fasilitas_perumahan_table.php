@@ -9,8 +9,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('fasilitas_perumahan', function (Blueprint $table) {
-            $table->id();
-
             // Foreign key ke tabel 'perumahan'
             $table->foreignId('id_perumahan')
                 ->constrained('perumahan') // Referensi ke tabel 'perumahan'

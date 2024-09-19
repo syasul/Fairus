@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Fasilitas;
+use App\Models\Perumahan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -73,15 +74,21 @@ class FasilitasController extends Controller
     {
         $fasilitas = Fasilitas::findOrFail($id_fasilitas);
 
-        // Delete image
-        Storage::delete('public/Facility/' . $fasilitas->gambar_fasilitas);
+        // dd($fasilitas['id_fasilitas']);
 
-        // Detach relationships with perumahan
-        $fasilitas->perumahan()->detach();
+        // Delete the image associated with the fasilitas
 
-        // Delete fasilitas
-        $fasilitas->delete();
+        // Detach the related 'perumahan' if it exists in the pivot table
+        if ($fasilitas->perumahan()->exists()) {
+            $fasilitas->perumahan()->detach();
+        }
 
+        // Delete the 'fasilitas'
+        Fasilitas::where('id_fasilitas', $fasilitas['id_fasilitas'])->delete();
+
+        if ($fasilitas->gambar_fasilitas) {
+            Storage::delete('public/Facility/' . $fasilitas->gambar_fasilitas);
+        }
         return redirect()->route('master-fasilitas.index')->with('success', 'Fasilitas deleted successfully.');
     }
 }

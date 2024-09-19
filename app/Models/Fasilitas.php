@@ -29,13 +29,11 @@ class Fasilitas extends Model
 
         // Event listener saat akan menghapus fasilitas
         static::deleting(function ($fasilitas) {
-            // Hapus relasi di tabel pivot
+            // First, detach all related records in the pivot table
             $fasilitas->perumahan()->detach();
 
-            // Cek jika tidak ada perumahan yang terkait, maka fasilitas bisa dihapus
-            if ($fasilitas->perumahan()->count() === 0) {
-                $fasilitas->delete(); // Hapus fasilitas jika tidak terhubung dengan perumahan manapun
-            }
+            // Now, delete the fasilitas record itself
+            $fasilitas->delete();
         });
     }
 }
