@@ -48,7 +48,7 @@
                       </div>
                       <div>
                         <h3 class="text-lg font-semibold">Total Perumahan</h3>
-                        <p class="text-gray-500">Jumlah: 20</p>
+                        <p class="text-gray-500">Jumlah: {{ $perumahanCount }}</p>
                       </div>
                     </div>
                   
@@ -61,7 +61,7 @@
                       </div>
                       <div>
                         <h3 class="text-lg font-semibold">Total Fasilitas</h3>
-                        <p class="text-gray-500">Jumlah: 15</p>
+                        <p class="text-gray-500">Jumlah: {{ $fasilitasCount }}</p>
                       </div>
                     </div>
                   
@@ -74,7 +74,7 @@
                       </div>
                       <div>
                         <h3 class="text-lg font-semibold">Total Penghargaan</h3>
-                        <p class="text-gray-500">Jumlah: 30</p>
+                        <p class="text-gray-500">Jumlah: {{ $penghargaanCount }}</p>
                       </div>
                     </div>
                   
@@ -87,7 +87,7 @@
                       </div>
                       <div>
                         <h3 class="text-lg font-semibold">Total Pesan</h3>
-                        <p class="text-gray-500">Jumlah: 10</p>
+                        <p class="text-gray-500">Jumlah: {{ $pesanCount }}</p>
                       </div>
                     </div>
                   </div>
