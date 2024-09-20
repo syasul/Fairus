@@ -16,17 +16,22 @@ class AuthController extends Controller
     // Handle the login process
     public function login(Request $request)
     {
+        // Validate input
         $credentials = $request->validate([
             'username' => ['required'],
             'password' => ['required'],
         ]);
 
+        // Attempt login
         if (Auth::attempt($credentials)) {
+            // Regenerate session to prevent session fixation attacks
             $request->session()->regenerate();
 
+            // Redirect to intended or default dashboard
             return redirect()->intended('/dashboard');
         }
 
+        // Redirect back with error message if login fails
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
         ])->onlyInput('username');
@@ -35,10 +40,14 @@ class AuthController extends Controller
     // Handle the logout process
     public function logout(Request $request)
     {
+        // Logout user
         Auth::logout();
+
+        // Invalidate and regenerate session token
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        // Redirect to login page
         return redirect('/login');
     }
 }
