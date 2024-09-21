@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PenghargaanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $penghargaans = Penghargaan::paginate(10);
+        $query = Penghargaan::query();
+
+        if ($request->has('search')) {
+            $query->where('nameAchivement', 'like', '%' . $request->search . '%');
+        }
+
+        $penghargaans = $query->paginate(10);
         return view('admin.masterPenghargaan', compact('penghargaans'));
     }
 

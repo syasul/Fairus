@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\Storage;
 
 class FasilitasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $fasilitas = Fasilitas::paginate(10);
+        $query = Fasilitas::query();
+
+        if ($request->has('search')) {
+            $query->where('nama_fasilitas', 'like', '%' . $request->search . '%');
+        }
+
+        $fasilitas = $query->paginate(10);
         return view('admin.masterFasilitas', compact('fasilitas'));
     }
 

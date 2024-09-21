@@ -14,6 +14,7 @@
     .account-link:hover { background: #3d68ff; }
     button[data-modal-toggle] i.ri-close-line {
     font-size: 1.5rem; /* Increase font size */
+    input:focus {outline: none;}
     padding: 0.5rem; /* Increase padding */
 }
 </style>

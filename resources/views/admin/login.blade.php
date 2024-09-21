@@ -2,6 +2,9 @@
 
 @section('head')
     <title>Fairus | Login</title>
+    <style>
+        input:focus {outline: none;}
+    </style>
 @endsection
 
 @section('body')

@@ -15,6 +15,7 @@
     button[data-modal-toggle] i.ri-close-line {
     font-size: 1.5rem; /* Increase font size */
     padding: 0.5rem; /* Increase padding */
+    input:focus {outline: none;}
 }
 </style>
 @endsection

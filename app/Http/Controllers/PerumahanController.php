@@ -8,10 +8,22 @@ use Illuminate\Http\Request;
 
 class PerumahanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $perumahans = Perumahan::with('fasilitas')->get();
+        // Inisialisasi query untuk Perumahan
+        $query = Perumahan::query();
+
+        // Jika ada parameter search dari request, tambahkan pencarian berdasarkan nama_perumahan
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('nama_perumahan', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Ambil data perumahan dari database (bisa ditambahkan pagination jika diperlukan)
+        $perumahans = $query->get();
         $fasilitas = Fasilitas::all();
+
+        // Return ke view dengan data perumahans dan fasilitas
         return view('admin.masterPerumahan', compact('perumahans', 'fasilitas'));
     }
     public function store(Request $request)

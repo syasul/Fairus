@@ -8,9 +8,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        // Inisialisasi query untuk User
+        $query = User::query();
+
+        // Jika ada parameter search dari request, tambahkan pencarian berdasarkan username
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $query->where('username', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Paginate data user dan hanya ambil username
+        $users = $query->paginate(10);
+
+        // Kembalikan view dengan data user yang sudah difilter
         return view('admin.masterUser', compact('users'));
     }
 

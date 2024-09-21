@@ -10,9 +10,15 @@ use Illuminate\View\View;
 
 class FotoPembelianController extends Controller
 {
-    public function index(): View
+    public function index(Request $request)
     {
-        $pembelians = FotoPembelian::paginate(10);
+        $query = FotoPembelian::query();
+
+        if ($request->has('search')) {
+            $query->where('foto_pembelian', 'like', '%' . $request->search . '%');
+        }
+
+        $pembelians = $query->paginate(10);
         return view('admin.MasterFotoPembelian', compact('pembelians'));
     }
 

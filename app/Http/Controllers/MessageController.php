@@ -9,9 +9,22 @@ use Illuminate\View\View;
 
 class MessageController extends Controller
 {
-    public function index(): View
+    public function index(Request $request)
     {
-        $messages = Message::latest()->paginate(10);
+        $query = Message::query();
+
+        if ($request->has('search')) {
+            $searchTerm = $request->search;
+
+            $query->where('message', 'like', '%' . $searchTerm . '%')
+                ->orWhere('deskripsi', 'like', '%' . $searchTerm . '%')
+                ->orWhere('firstName', 'like', '%' . $searchTerm . '%')
+                ->orWhere('lastName', 'like', '%' . $searchTerm . '%')
+                ->orWhere('email', 'like', '%' . $searchTerm . '%');
+        }
+
+        $messages = $query->paginate(10);
+
         return view('admin.pesan', compact('messages'));
     }
 
