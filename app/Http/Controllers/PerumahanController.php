@@ -29,6 +29,8 @@ class PerumahanController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         // Validasi data input
         $data = $request->validate([
             'nama_perumahan' => 'required|string|max:255',
@@ -43,6 +45,7 @@ class PerumahanController extends Controller
             'about_perumahan_image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'fasilitas_perumahan_title' => 'required|string|max:255',
             'fasilitas' => 'nullable|array',
+            'fasilitas.*' => 'exists:fasilitas,id_fasilitas',
             'maps_perumahan_sub_title' => 'required|string|max:255',
             'maps_perumahan_content' => 'required|string',
             'maps_perumahan_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -98,16 +101,15 @@ class PerumahanController extends Controller
         }
 
         // Simpan data perumahan ke database
-        $perumahan->save();
+
+
+        $perumahan->fasilitas()->sync($request->fasilitas);
 
         // Sinkronisasi fasilitas jika ada
-        // Sinkronisasi fasilitas jika ada
         if ($request->has('fasilitas')) {
-            $validFasilitasIds = Fasilitas::pluck('id_fasilitas')->toArray();
-            $selectedFasilitas = array_filter($request->fasilitas, function ($id_fasilitas) use ($validFasilitasIds) {
-                return in_array($id_fasilitas, $validFasilitasIds);
-            });
-            $perumahan->fasilitas()->sync($selectedFasilitas);
+            $validFasilitasIds = Fasilitas::pluck('id_fasilitas')->toArray(); // Ambil id_fasilitas dari tabel fasilitas
+            $selectedFasilitas = collect($request->fasilitas)->intersect($validFasilitasIds)->toArray(); // Validasi fasilitas yang dipilih
+            $perumahan->fasilitas()->sync($selectedFasilitas); // Sinkronisasi ke tabel pivot
         }
 
 
@@ -143,6 +145,9 @@ class PerumahanController extends Controller
 
         // Handle optional image uploads
         $this->handleImageUploads($request, $perumahan);
+
+        $perumahan->save();
+
 
         // Update associated facilities
         if ($request->has('fasilitas')) {

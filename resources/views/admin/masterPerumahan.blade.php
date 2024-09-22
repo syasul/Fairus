@@ -270,12 +270,12 @@
                         <div class="mb-4">
                             <label class="block text-gray-700">Fasilitas</label>
                             @foreach($fasilitas as $f)
-                            <div class="flex items-center mb-2">
-                                <input type="checkbox" name="fasilitas[]" value="{{ $f->id_fasilitas }}"
-                                    class="h-4 w-4 text-blue-600 border-gray-300 rounded">
-                                <label class="ml-2 text-gray-700">{{ $f->nama_fasilitas }}</label>
-                            </div>
+                                <div class="flex items-center mb-2">
+                                    <input type="checkbox" name="fasilitas[]" value="{{ $f->id_fasilitas }}" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                    <label class="ml-2 text-gray-700">{{ $f->nama_fasilitas }}</label>
+                                </div>
                             @endforeach
+
                         </div>
                         <button type="submit"
                             class="px-4 py-2 w-full bg-blue-500 text-white rounded-lg hover:bg-blue-600">Tambah Perumahan</button>

@@ -9,17 +9,29 @@ return new class extends Migration
     public function up()
     {
         Schema::create('fasilitas_perumahan', function (Blueprint $table) {
-            // Foreign key ke tabel 'perumahan'
-            $table->foreignId('id_perumahan')
-                ->constrained('perumahan') // Referensi ke tabel 'perumahan'
-                ->onDelete('cascade'); // Hapus relasi jika perumahan dihapus
+            $table->id();
 
             // Foreign key ke tabel 'fasilitas'
-            $table->foreignId('id_fasilitas')
-                ->constrained('fasilitas') // Referensi ke tabel 'fasilitas'
-                ->onDelete('cascade'); // Hapus relasi jika fasilitas dihapus
+            $table->unsignedInteger('id_fasilitas');
+            $table->foreign('id_fasilitas')->references('id')->on('fasilitas')->onDelete('cascade');
+
+            // Foreign key ke tabel 'perumahan'
+            $table->unsignedInteger('id_perumahan');
+            $table->foreign('id_perumahan')->references('id')->on('perumahan')->onDelete('cascade');
 
             $table->timestamps();
+            // $table->id();
+            // // Foreign key ke tabel 'perumahan'
+            // $table->foreignId('id_perumahan')
+            //     ->constrained('perumahan') // Referensi ke tabel 'perumahan'
+            //     ->onDelete('cascade'); // Hapus relasi jika perumahan dihapus
+
+            // // Foreign key ke tabel 'fasilitas'
+            // $table->foreignId('id_fasilitas')
+            //     ->constrained('fasilitas') // Referensi ke tabel 'fasilitas'
+            //     ->onDelete('cascade'); // Hapus relasi jika fasilitas dihapus
+
+            // $table->timestamps();
         });
     }
 
