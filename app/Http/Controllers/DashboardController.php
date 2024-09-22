@@ -6,6 +6,7 @@ use App\Models\Fasilitas;
 use App\Models\Message;
 use App\Models\Penghargaan;
 use App\Models\Perumahan;
+use App\Models\Rumah;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,12 +19,13 @@ class DashboardController extends Controller
         $homeSection = Sales::where('name', 'home')->first();
         $aboutMeSection = Sales::where('name', 'aboutMe')->first();
 
+        $rumahCount = Rumah::count();
         $perumahanCount = Perumahan::count();
         $fasilitasCount = Fasilitas::count();
         $penghargaanCount = Penghargaan::count();
         $pesanCount = Message::count();
 
-        return view('admin.dashboard', compact('homeSection', 'aboutMeSection', 'perumahanCount', 'fasilitasCount', 'penghargaanCount', 'pesanCount'));
+        return view('admin.dashboard', compact('homeSection', 'aboutMeSection', 'perumahanCount', 'fasilitasCount', 'penghargaanCount', 'pesanCount', 'rumahCount'));
     }
 
     public function update(Request $request, $section)

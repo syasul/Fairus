@@ -1,6 +1,9 @@
 @extends('base')
 @section('head')
     <title>Fairus</title>
+    <style>
+        input:focus {outline: none;}
+    </style>
 
 @endsection
 @section('body')
@@ -145,7 +148,7 @@
                                 First Name
                             </label>
                             <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
                                 id="grid-first-name" type="text" placeholder="First Name" name="firstName">
                             <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                         </div>
@@ -155,7 +158,7 @@
                                 Last Name
                             </label>
                             <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
                                 id="grid-last-name" type="text" placeholder="Last Name" name="lastName">
                         </div>
                     </div>
@@ -166,7 +169,7 @@
                                 Email
                             </label>
                             <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
                                 id="grid-email" type="email" placeholder="Email" name="email">
                             <!-- <p class="text-red-500 text-xs italic">Please fill out this field.</p> -->
                         </div>
@@ -176,7 +179,7 @@
                                 Phone Number
                             </label>
                             <input
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
                                 id="grid-phone" type="number" placeholder="+62" name="phoneNumber">
                         </div>
                     </div>
@@ -187,16 +190,11 @@
                                 Message
                             </label>
                             <textarea
-                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
                                 id="grid-message" placeholder="Message" name="message"></textarea>
                         </div>
                     </div>
-                    <div class="flex items-center mb-6">
-                        <input class="mr-2 leading-tight" type="checkbox">
-                        <span class="text-sm">
-                            Send me your newsletter!
-                        </span>
-                    </div>
+                    
                     <div class="text-center">
                         <button type="submit"
                             class="text-base font-medium bg-primaryGrey px-8 py-3 text-white rounded-md">

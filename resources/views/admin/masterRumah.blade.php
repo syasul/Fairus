@@ -34,18 +34,6 @@
                             {{ session('alert') }}
                         </div>
                     @endif
-
-                    @if($errors->any())
-        <div class="bg-red-500 text-white p-4 rounded mb-4">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-
                     <div class="w-full mt-6">
                         <div class="flex justify-between mb-5">
                             <p class="text-xl pb-3 flex items-center">
@@ -69,6 +57,13 @@
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-700">
+                                    @if ($rumahs->isEmpty())
+                                    <tr>
+                                        <td colspan="3" class="text-center py-3 px-4">
+                                            Tidak ada Rumah yang tersedia.
+                                        </td>
+                                    </tr>
+                                    @else
                                     @foreach ($rumahs as $rumah)
                                     <tr>
                                         <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
@@ -90,10 +85,13 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
-
+                        <div class="mt-6">
+                            {{ $rumahs->appends(request()->input())->links() }}
+                        </div>
                     </div>
                 </main>
         
@@ -113,25 +111,26 @@
                                 @csrf
                                 <div>
                                     <label for="gambar_rumah" class="text-sm font-medium text-gray-900 block mb-2">Image Rumah</label>
-                                    <input type="file" name="gambar_rumah" id="gambar_rumah" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Image URL" required>
+                                    <input type="file" name="gambar_rumah" id="gambar_rumah" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Image URL" required>
                                 </div>
                                 <div>
-                                    <label for="tipe" class="text-sm font-medium text-gray-900 block mb-2">Tipe Rumah</label>
-                                    <input type="text" name="tipe" id="tipe" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Tipe Rumah" required>
-                                </div>                            
-                                <div>
                                     <label for="perumahan" class="text-sm font-medium text-gray-900 block mb-2">Perumahan</label>
-                                    <select name="id_perumahan" id="perumahan" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                    <select name="id_perumahan" id="perumahan" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
                                         <option value="">Select Perumahan</option>
                                         @foreach($perumahans as $perumahan)
                                             <option value="{{ $perumahan->id_perumahan }}">{{ $perumahan->nama_perumahan }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <div>
+                                    <label for="tipe" class="text-sm font-medium text-gray-900 block mb-2">Tipe Rumah</label>
+                                    <input type="text" name="tipe" id="tipe" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Tipe Rumah" required>
+                                </div>                            
+                                
                                 
                                 <div>
                                     <label for="deskripsi" class="text-sm font-medium text-gray-900 block mb-2">Deskripsi</label>
-                                    <textarea name="deskripsi" id="deskripsi" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Deskripsi Rumah" required></textarea>
+                                    <textarea name="deskripsi" id="deskripsi" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Deskripsi Rumah" required></textarea>
                                 </div>
                             
                                 <div class="flex justify-center">
@@ -163,13 +162,13 @@
                                 <div>
                                     <label for="gambar_rumah" class="text-sm font-medium text-gray-900 block mb-2">Image Rumah</label>
                                     <img src="{{ asset('storage/Home/' . $rumah->gambar_rumah) }}" alt="Rumah Image" class="w-20 h-20 object-cover rounded-lg mb-3">
-                                    <input type="file" name="gambar_rumah" id="gambar_rumah" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    <p class="text-sm text-gray-500 mt-1">Leave empty if you don't want to change the image</p>
+                                    <input type="file" name="gambar_rumah" id="gambar_rumah" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
+
                                 </div>
                             
                                 <div>
                                     <label for="perumahan" class="text-sm font-medium text-gray-900 block mb-2">Perumahan</label>
-                                    <select name="id_perumahan" id="perumahan" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                    <select name="id_perumahan" id="perumahan" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
                                         @foreach($perumahans as $perumahan)
                                             <option value="{{ $perumahan->id_perumahan }}" {{ $perumahan->id_perumahan == $rumah->id_perumahan ? 'selected' : '' }}>{{ $perumahan->nama_perumahan }}</option>
                                         @endforeach
@@ -178,12 +177,12 @@
                             
                                 <div>
                                     <label for="tipe" class="text-sm font-medium text-gray-900 block mb-2">Tipe Rumah</label>
-                                    <input type="text" name="tipe" id="tipe" value="{{ $rumah->tipe }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                                    <input type="text" name="tipe" id="tipe" value="{{ $rumah->tipe }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
                                 </div>                            
                             
                                 <div>
                                     <label for="deskripsi" class="text-sm font-medium text-gray-900 block mb-2">Deskripsi</label>
-                                    <textarea name="deskripsi" id="deskripsi" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>{{ $rumah->deskripsi }}</textarea>
+                                    <textarea name="deskripsi" id="deskripsi" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>{{ $rumah->deskripsi }}</textarea>
                                 </div>
                             
                                 <div class="flex justify-center">
@@ -199,7 +198,7 @@
                 @foreach ($rumahs as $rumah)
                 <div id="delete-rumah-modal-{{ $rumah->id_rumah }}" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
                     <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-                        <div class="bg-white rounded-lg shadow relative">
+                        <div class="bg-white rounded-lg shadow relative ">
                             <div class="flex justify-between items-center p-4 border-b">
                                 <h3 class="text-lg font-semibold text-gray-900">
                                     Delete Rumah
@@ -208,17 +207,15 @@
                                     <i class="ri-close-line"></i>
                                 </button>
                             </div>
-                            <div class="p-6 space-y-6">
-                                <p>Are you sure you want to delete this Rumah?</p>
-                            </div>
-                            <div class="flex justify-center p-6 space-x-2 border-t">
-                                <form action="{{ route('master-rumah.destroy', $rumah->id_rumah) }}" method="POST">
+                                <form action="{{ route('master-rumah.destroy', $rumah->id_rumah) }}" method="POST" class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-5 py-2.5 text-center">Delete</button>
+                                    <p class="text-sm text-gray-500 ">Are you sure you want to delete this Rumah?</p>
+                                    <div class="flex justify-center">
+                                        <button type="submit" class="w-full text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Delete</button>
+                                    </div>
                                 </form>
-                                <button data-modal-toggle="delete-rumah-modal-{{ $rumah->id_rumah }}" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg px-5 py-2.5">Cancel</button>
-                            </div>
+                                
                         </div>
                     </div>
                 </div>

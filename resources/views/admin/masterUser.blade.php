@@ -61,6 +61,13 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
+                                @if ($users->isEmpty())
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 px-4">
+                                        Tidak ada User yang tersedia.
+                                    </td>
+                                </tr>
+                                @else
                                 @foreach ($users as $user)
                                 <tr>
                                     <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
@@ -78,12 +85,13 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
 
                     <div class="mt-6">
-                        {{ $users->links() }}
+                        {{ $users->appends(request()->input())->links() }}
                     </div>
                 </div>
             </main>
@@ -93,23 +101,23 @@
     <!-- Add User Modal -->
     <div id="add-user-modal" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <div class="bg-white rounded-lg shadow relative">
                 <div class="flex justify-between items-center p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-lg font-semibold text-grey-900 ">
                         Add User
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="add-user-modal">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1 ml-auto inline-flex items-center " data-modal-toggle="add-user-modal">
                         <i class="ri-close-line"></i>
                     </button>
                 </div>
                 <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-user.store') }}" method="POST">
                     @csrf
                     <div>
-                        <label for="username" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Username</label>
+                        <label for="username" class="text-sm font-medium text-gray-900 block mb-2 ">Username</label>
                         <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Username" required>
                     </div>
                     <div>
-                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Password</label>
+                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2 ">Password</label>
                         <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Password" required>
                     </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -124,12 +132,12 @@
     <!-- Edit User Modal -->
     <div id="edit-user-modal-{{ $user->id }}" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <div class="bg-white rounded-lg shadow relative">
                 <div class="flex justify-between items-center p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-lg font-semibold text-gray-900 ">
                         Update User
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="edit-user-modal-{{ $user->id }}">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="edit-user-modal-{{ $user->id }}">
                         <i class="ri-close-line"></i>
                     </button>
                 </div>
@@ -145,7 +153,7 @@
                 
                     <!-- Field untuk text_password -->
                     <div>
-                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2">Password (plaintext)</label>
+                        <label for="password" class="text-sm font-medium text-gray-900 block mb-2">Password</label>
                         <input type="text" name="text_password" id="password" value="{{ $user->text_password }}" class="bg-gray-50 border border-gray-300 rounded-lg p-2.5 w-full">
                     </div>
                 
@@ -159,12 +167,12 @@
     <!-- Delete User Modal -->
     <div id="delete-user-modal-{{ $user->id }}" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <div class="bg-white rounded-lg shadow relative ">
                 <div class="flex justify-between items-center p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-lg font-semibold text-gray-900">
                         Delete User
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="delete-user-modal-{{ $user->id }}">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="delete-user-modal-{{ $user->id }}">
                         <i class="ri-close-line"></i>
                     </button>
                 </div>
@@ -173,7 +181,7 @@
                     @method('DELETE')
                     
                     <p>Are you sure you want to delete this user?</p>
-                    <button type="submit" class="bg-red-500 text-white p-2.5 rounded-lg">Delete User</button>
+                    <button type="submit" class="bg-red-500 text-white p-2.5 rounded-lg w-full">Delete User</button>
                 </form>
                 
             </div>

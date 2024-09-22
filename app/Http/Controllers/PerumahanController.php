@@ -20,12 +20,13 @@ class PerumahanController extends Controller
         }
 
         // Ambil data perumahan dari database (bisa ditambahkan pagination jika diperlukan)
-        $perumahans = $query->get();
+        $perumahans = $query->paginate(10);
         $fasilitas = Fasilitas::all();
 
         // Return ke view dengan data perumahans dan fasilitas
         return view('admin.masterPerumahan', compact('perumahans', 'fasilitas'));
     }
+
     public function store(Request $request)
     {
         // Validasi data input
@@ -41,7 +42,7 @@ class PerumahanController extends Controller
             'about_perumahan_image1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'about_perumahan_image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'fasilitas_perumahan_title' => 'required|string|max:255',
-            'fasilitas' => 'array',
+            'fasilitas' => 'nullable|array',
             'maps_perumahan_sub_title' => 'required|string|max:255',
             'maps_perumahan_content' => 'required|string',
             'maps_perumahan_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -100,9 +101,15 @@ class PerumahanController extends Controller
         $perumahan->save();
 
         // Sinkronisasi fasilitas jika ada
+        // Sinkronisasi fasilitas jika ada
         if ($request->has('fasilitas')) {
-            $perumahan->fasilitas()->sync($request->fasilitas);
+            $validFasilitasIds = Fasilitas::pluck('id_fasilitas')->toArray();
+            $selectedFasilitas = array_filter($request->fasilitas, function ($id_fasilitas) use ($validFasilitasIds) {
+                return in_array($id_fasilitas, $validFasilitasIds);
+            });
+            $perumahan->fasilitas()->sync($selectedFasilitas);
         }
+
 
         // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Data Perumahan berhasil ditambahkan');
@@ -139,7 +146,11 @@ class PerumahanController extends Controller
 
         // Update associated facilities
         if ($request->has('fasilitas')) {
-            $perumahan->fasilitas()->sync($request->fasilitas);
+            $validFasilitasIds = Fasilitas::pluck('id_fasilitas')->toArray();
+            $selectedFasilitas = array_filter($request->fasilitas, function ($id_fasilitas) use ($validFasilitasIds) {
+                return in_array($id_fasilitas, $validFasilitasIds);
+            });
+            $perumahan->fasilitas()->sync($selectedFasilitas);
         }
 
         return redirect()->back()->with('success', 'Data Perumahan berhasil diupdate');

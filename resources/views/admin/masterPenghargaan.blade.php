@@ -59,6 +59,13 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
+                                @if ($penghargaans->isEmpty())
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 px-4">
+                                        Tidak ada Penghargaan yang tersedia.
+                                    </td>
+                                </tr>
+                                @else
                                 @foreach ($penghargaans as $penghargaan)
                                 <tr>
                                     <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
@@ -79,12 +86,14 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @endif
+                                
                             </tbody>
                         </table>
                     </div>
 
                     <div class="mt-6">
-                        {{ $penghargaans->links() }}
+                        {{ $penghargaans->appends(request()->input())->links() }}
                     </div>
                 </div>
             </main>
@@ -94,24 +103,24 @@
     <!-- Add Penghargaan Modal -->
     <div id="add-penghargaan-modal" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <div class="bg-white rounded-lg shadow relative ">
                 <div class="flex justify-between items-center p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-lg font-semibold text-gray-900 ">
                         Add Penghargaan
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="add-penghargaan-modal">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="add-penghargaan-modal">
                         <i class="ri-close-line"></i>
                     </button>
                 </div>
                 <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-penghargaan.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div>
-                        <label for="imageAchivement" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Image Achivement</label>
-                        <input type="file" name="imageAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white" placeholder="Image URL" required>
+                        <label for="imageAchivement" class="text-sm font-medium text-gray-900 block mb-2 ">Image Achivement</label>
+                        <input type="file" name="imageAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 " placeholder="Image URL" required>
                     </div>
                     <div>
-                        <label for="nameAchivement" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Name Achivement</label>
-                        <input type="text" name="nameAchivement" id="nameAchivement" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Name Achivement" required>
+                        <label for="nameAchivement" class="text-sm font-medium text-gray-900 block mb-2 ">Name Achivement</label>
+                        <input type="text" name="nameAchivement" id="nameAchivement" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5 " placeholder="Name Achivement" required>
                     </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Add Penghargaan
@@ -125,12 +134,12 @@
     <!-- Edit Penghargaan Modal -->
     <div id="edit-penghargaan-modal-{{ $penghargaan->id }}" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <div class="bg-white rounded-lg shadow relative ">
                 <div class="flex justify-between items-center p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-lg font-semibold text-gray-900 ">
                         Update Penghargaan
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="edit-penghargaan-modal-{{ $penghargaan->id }}">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="edit-penghargaan-modal-{{ $penghargaan->id }}">
                         <i class="ri-close-line"></i>
                     </button>
                 </div>
@@ -138,13 +147,13 @@
                     @csrf
                     @method('PUT')
                     <div>
-                        <img src="{{ asset('storage/Achivement/' . $penghargaan->imageAchivement) }}" alt="Image Achievement" class="w-full h-auto mb-4 rounded-lg">
-                        <label for="imageAchivement" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Image Achivement</label>
-                        <input type="file" name="imageAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white">
+                        <img src="{{ asset('storage/Achivement/' . $penghargaan->imageAchivement) }}" alt="Image Achievement" class="w-1/2 h-a mb-4 rounded-lg">
+                        <label for="imageAchivement" class="text-sm font-medium text-gray-900 block mb-2 ">Image Achivement</label>
+                        <input type="file" name="imageAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 ">
                     </div>                
                     <div>
-                        <label for="nameAchivement" class="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">Name Achivement</label>
-                        <input type="text" value="{{ old('nameAchivement', $penghargaan->nameAchivement) }}" name="nameAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                        <label for="nameAchivement" class="text-sm font-medium text-gray-900 block mb-2 ">Name Achivement</label>
+                        <input type="text" value="{{ old('nameAchivement', $penghargaan->nameAchivement) }}" name="nameAchivement" id="imageAchivement" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5 ">
 
                     </div>
                     <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -158,19 +167,19 @@
     <!-- Delete Penghargaan Modal -->
     <div id="delete-penghargaan-modal-{{ $penghargaan->id }}" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
         <div class="relative w-full max-w-md px-4 h-full md:h-auto">
-            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+            <div class="bg-white rounded-lg shadow relative ">
                 <div class="flex justify-between items-center p-4 border-b">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 class="text-lg font-semibold text-gray-900 ">
                         Delete Penghargaan
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="delete-penghargaan-modal-{{ $penghargaan->id }}">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="delete-penghargaan-modal-{{ $penghargaan->id }}">
                         <i class="ri-close-line"></i>
                     </button>
                 </div>
                 <form class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8" action="{{ route('master-penghargaan.destroy', $penghargaan->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <p class="text-sm text-gray-900 dark:text-white">Are you sure you want to delete this penghargaan?</p>
+                    <p class="text-sm text-gray-900 ">Are you sure you want to delete this penghargaan?</p>
                     <button type="submit" class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                         Delete Penghargaan
                     </button>

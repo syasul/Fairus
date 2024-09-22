@@ -29,12 +29,12 @@
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
-                <h1 class="text-3xl text-black pb-6 text-bold">Message</h1>
+                <h1 class="text-3xl text-black pb-6 text-bold">Meesage</h1>
 
                 <div class="w-full mt-6">
                     <div class="flex justify-between mb-5">
                         <p class="text-xl pb-3 flex items-center">
-                            <i class="ri-list-check mr-2"></i> Table Example
+                            <i class="ri-list-check mr-2"></i> Table Meesage
                         </p>
                         
                     </div>
@@ -53,6 +53,13 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
+                                @if ($messages->isEmpty())
+                                <tr>
+                                    <td colspan="7" class="text-center py-3 px-4">
+                                        Tidak ada Pesan yang masuk.
+                                    </td>
+                                </tr>
+                                @else
                                 @foreach ($messages as $message)
                                 <tr>
                                     <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
@@ -64,12 +71,14 @@
                                     <td class="text-center py-3 px-4">{{ $message->created_at->format('d-m-Y H:i') }}</td>
                                 </tr>
                                 @endforeach
+                                @endif
+                                
                             </tbody>
                         </table>
                     </div>
 
                     <div class="mt-6">
-                        {{ $messages->links() }}
+                        {{ $messages->appends(request()->input())->links() }}
                     </div>
                 </div>
             </main>

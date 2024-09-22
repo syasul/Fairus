@@ -39,60 +39,64 @@
                     </div>
                 @endif
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 py-4">
                     <!-- Card 1 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 flex items-center">
-                      <div class="bg-blue-500 p-3 rounded-full text-white mr-4">
-                        <!-- Icon (gunakan heroicons atau fontawesome) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0L5 19m2-2h6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 class="text-lg font-semibold">Total Perumahan</h3>
-                        <p class="text-gray-500">Jumlah: {{ $perumahanCount }}</p>
-                      </div>
+                    <div class="bg-white shadow-md rounded-lg px-6 py-4 flex items-center">
+                        <div class="bg-blue-500 p-4 w-12 h-12 rounded-full text-white flex justify-center items-center mr-4"> <!-- Increased padding to p-4 -->
+                            <i class="ri-building-2-line scale-175"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-semibold">Total Perumahan</h5>
+                            <p class="text-gray-500">Jumlah: {{ $perumahanCount }}</p>
+                        </div>
                     </div>
-                  
+
+                    <div class="bg-white shadow-md rounded-lg px-6 py-4 flex items-center">
+                        <div class="bg-blue-500 p-4 w-12 h-12 rounded-full text-white flex justify-center items-center mr-4"> <!-- Increased padding to p-4 -->
+                            <i class="ri-home-line scale-175"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-semibold">Total Rumah</h5>
+                            <p class="text-gray-500">Jumlah: {{ $rumahCount }}</p>
+                        </div>
+                    </div>
+                    
                     <!-- Card 2 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 flex items-center">
-                      <div class="bg-blue-500 p-3 rounded-full text-white mr-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0L5 19m2-2h6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 class="text-lg font-semibold">Total Fasilitas</h3>
-                        <p class="text-gray-500">Jumlah: {{ $fasilitasCount }}</p>
-                      </div>
+                    <div class="bg-white shadow-md rounded-lg px-6 py-4 flex items-center">
+                        <div class="bg-blue-500 p-4 w-12 h-12 rounded-full text-white flex justify-center items-center mr-4"> <!-- Increased padding to p-4 -->
+                            <i class="ri-image-add-line scale-175"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-semibold">Total Fasilitas</h5>
+                            <p class="text-gray-500">Jumlah: {{ $fasilitasCount }}</p>
+                        </div>
                     </div>
-                  
+                    
                     <!-- Card 3 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 flex items-center">
-                      <div class="bg-blue-500 p-3 rounded-full text-white mr-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0L5 19m2-2h6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 class="text-lg font-semibold">Total Penghargaan</h3>
-                        <p class="text-gray-500">Jumlah: {{ $penghargaanCount }}</p>
-                      </div>
+                    <div class="bg-white shadow-md rounded-lg px-6 py-4 flex items-center">
+                        <div class="bg-blue-500 p-4 w-12 h-12 rounded-full text-white flex justify-center items-center mr-4"> <!-- Increased padding to p-4 -->
+                            <i class="ri-award-line scale-175"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-semibold">Total Penghargaan</h5>
+                            <p class="text-gray-500">Jumlah: {{ $penghargaanCount }}</p>
+                        </div>
                     </div>
-                  
+                    
                     <!-- Card 4 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 flex items-center">
-                      <div class="bg-blue-500 p-3 rounded-full text-white mr-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0L5 19m2-2h6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 class="text-lg font-semibold">Total Pesan</h3>
-                        <p class="text-gray-500">Jumlah: {{ $pesanCount }}</p>
-                      </div>
+                    <div class="bg-white shadow-md rounded-lg px-6 py-4 flex items-center">
+                        <div class="bg-blue-500 p-4 w-12 h-12 rounded-full text-white flex justify-center items-center mr-4"> <!-- Increased padding to p-4 -->
+                            <i class="ri-chat-4-line scale-175"></i>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-semibold">Total Pesan</h5>
+                            <p class="text-gray-500">Jumlah: {{ $pesanCount }}</p>
+                        </div>
                     </div>
-                  </div>
+
+                   
+                </div>
+                
                   
 
                 <!-- Home Section -->

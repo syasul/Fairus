@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         // Redirect back with error message if login fails
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
+            'username' => 'please check username and password !!',
         ])->onlyInput('username');
     }
 

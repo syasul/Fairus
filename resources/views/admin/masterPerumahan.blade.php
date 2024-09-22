@@ -35,6 +35,7 @@
         background: #3d68ff;
     }
     input:focus {outline: none;}
+    textarea:focus {outline: none;}
 </style>
 @endsection
 @section('body')
@@ -87,39 +88,48 @@
                                 </tr>
                             </thead>
                             <tbody class="text-gray-700">
-                                @foreach ($perumahans as $perumahan)
+                                @if ($perumahans->isEmpty())
                                 <tr>
-                                    <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
-                                    <td class="text-center py-3 px-4 flex justify-center">
-                                        <img src="{{ asset('storage/Perumahan/' . $perumahan->gambar_perumahan) }}"
-                                            alt="Perumahan Image" class="w-20 h-20 object-cover rounded-lg">
-
-                                    </td>
-
-                                    <td class="text-center py-3 px-4">{{ $perumahan->nama_perumahan }}</td>
-                                    <td class="text-center py-3 px-4">{{ $perumahan->deskripsi_singkat }}</td>
-                                    <td class="text-center py-3 px-4">
-                                        <div class="flex items-center justify-center gap-3">
-                                            <button
-                                                data-modal-toggle="edit-perumahan-modal-{{ $perumahan->id_perumahan }}"
-                                                class="bg-yellow-500 text-white px-2 py-1 rounded-lg">
-                                                <i class="ri-edit-line"></i>
-                                            </button>
-                                            <button
-                                                data-modal-toggle="delete-perumahan-modal-{{ $perumahan->id_perumahan }}"
-                                                class="bg-red-500 text-white px-2 py-1 rounded-lg">
-                                                <i class="ri-delete-bin-6-line"></i>
-                                            </button>
-                                        </div>
+                                    <td colspan="5" class="text-center py-3 px-4">
+                                        Tidak ada Perumahan yang tersedia.
                                     </td>
                                 </tr>
-                                @endforeach
+                                @else
+                                    @foreach ($perumahans as $perumahan)
+                                        <tr>
+                                            <td class="text-center py-3 px-4">{{ $loop->iteration }}</td>
+                                            <td class="text-center py-3 px-4 flex justify-center">
+                                                <img src="{{ asset('storage/Perumahan/' . $perumahan->gambar_perumahan) }}"
+                                                    alt="Perumahan Image" class="w-20 h-20 object-cover rounded-lg">
+
+                                            </td>
+
+                                            <td class="text-center py-3 px-4">{{ $perumahan->nama_perumahan }}</td>
+                                            <td class="text-center py-3 px-4">{{ $perumahan->deskripsi_singkat }}</td>
+                                            <td class="text-center py-3 px-4">
+                                                <div class="flex items-center justify-center gap-3">
+                                                    <button
+                                                        data-modal-toggle="edit-perumahan-modal-{{ $perumahan->id_perumahan }}"
+                                                        class="bg-yellow-500 text-white px-2 py-1 rounded-lg">
+                                                        <i class="ri-edit-line"></i>
+                                                    </button>
+                                                    <button
+                                                        data-modal-toggle="delete-perumahan-modal-{{ $perumahan->id_perumahan }}"
+                                                        class="bg-red-500 text-white px-2 py-1 rounded-lg">
+                                                        <i class="ri-delete-bin-6-line"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                
                             </tbody>
                         </table>
                     </div>
 
                     <div class="mt-6">
-                        {{-- {{ $perumahans->links() }} --}}
+                        {{ $perumahans->appends(request()->input())->links() }}
                     </div>
                 </div>
                 <!-- Content goes here! 😁 -->
@@ -129,11 +139,11 @@
 
     <!-- Modal Add Perumahan -->
     <div id="add-perumahan-modal" aria-hidden="true"
-        class="fixed inset-0 flex items-center justify-center z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-gray-800 bg-opacity-50">
-        <div class="relative w-full max-w-2xl bg-white rounded-lg shadow-lg">
-            <div class="relative bg-white rounded-t-lg border-b border-gray-200">
-                <div class="flex items-center justify-between p-4">
-                    <h3 class="text-lg font-semibold text-gray-900">
+    class="fixed inset-0 flex items-center justify-center z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-gray-800 bg-opacity-50">
+    <div class="relative w-full max-w-2xl bg-white rounded-lg shadow-lg">
+        <div class="relative bg-white rounded-t-lg border-b border-gray-200">
+            <div class="flex items-center justify-between p-4">
+                <h3 class="text-lg font-semibold text-gray-900">
                         Tambah Perumahan
                     </h3>
                     <button type="button"
@@ -148,113 +158,113 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <div class="p-6 space-y-6">
+                <div class="p-6 max-h-[70vh] overflow-y-auto">
                     <form action="{{ route('master-perumahan.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <label for="nama_perumahan" class="block text-gray-700">Nama Perumahan</label>
                             <input type="text" name="nama_perumahan"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="deskripsi_singkat" class="block text-gray-700">Deskripsi Singkat</label>
                             <textarea name="deskripsi_singkat"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="gambar_perumahan" class="block text-gray-700">Gambar Perumahan</label>
                             <input type="file" name="gambar_perumahan"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm">
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
                         </div>
                         <div class="mb-4">
                             <label for="gambar_jumbotron" class="block text-gray-700">Gambar Jumbotron</label>
                             <input type="file" name="gambar_jumbotron"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm">
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
                         </div>
                         <div class="mb-4">
                             <label for="about_perumahan_sub_title" class="block text-gray-700">About Perumahan
                                 Subtitle</label>
                             <input type="text" name="about_perumahan_sub_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="about_perumahan_content" class="block text-gray-700">About Perumahan
                                 Content</label>
                             <textarea name="about_perumahan_content"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="about_perumahan_image" class="block text-gray-700">About Perumahan Image</label>
                             <input type="file" name="about_perumahan_image"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm">
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
                         </div>
                         <div class="mb-4">
                             <label for="alasan_perumahan_content" class="block text-gray-700">Alasan Perumahan
                                 Content</label>
                             <textarea name="alasan_perumahan_content"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="about_perumahan_image1" class="block text-gray-700">About Perumahan Image
                                 1</label>
                             <input type="file" name="about_perumahan_image1"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm">
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
                         </div>
                         <div class="mb-4">
                             <label for="about_perumahan_image2" class="block text-gray-700">About Perumahan Image
                                 2</label>
                             <input type="file" name="about_perumahan_image2"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm">
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
                         </div>
                         <div class="mb-4">
                             <label for="fasilitas_perumahan_title" class="block text-gray-700">Fasilitas Perumahan
                                 Title</label>
                             <input type="text" name="fasilitas_perumahan_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="maps_perumahan_sub_title" class="block text-gray-700">Maps Perumahan
                                 Subtitle</label>
                             <input type="text" name="maps_perumahan_sub_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="maps_perumahan_content" class="block text-gray-700">Maps Perumahan
                                 Content</label>
                             <textarea name="maps_perumahan_content"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="maps_perumahan_image" class="block text-gray-700">Maps Perumahan Image</label>
                             <input type="file" name="maps_perumahan_image"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm">
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
                         </div>
                         <div class="mb-4">
                             <label for="pembayaran_perumahan_title" class="block text-gray-700">Pembayaran Perumahan
                                 Title</label>
                             <input type="text" name="pembayaran_perumahan_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="pembayaran_perumahan_content" class="block text-gray-700">Pembayaran Perumahan
                                 Content</label>
                             <textarea name="pembayaran_perumahan_content"
-                                class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="penghargaan_title" class="block text-gray-700">Penghargaan Title</label>
                             <input type="text" name="penghargaan_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
                                 required>
                         </div>
                         <div class="mb-4">
@@ -268,7 +278,7 @@
                             @endforeach
                         </div>
                         <button type="submit"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Submit</button>
+                            class="px-4 py-2 w-full bg-blue-500 text-white rounded-lg hover:bg-blue-600">Tambah Perumahan</button>
                     </form>
                 </div>
             </div>
@@ -330,7 +340,7 @@
                             alt="Gambar Perumahan" class="w-full rounded-md mt-2 object-cover">
                         @endif
                         <input type="file" id="gambar_perumahan" name="gambar_perumahan"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                            class="w-full bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block p-2.5">
                     </div>
 
                     <!-- Gambar Jumbotron -->
@@ -341,7 +351,7 @@
                             alt="Gambar Jumbotron" class="w-full rounded-md mt-2 object-cover">
                         @endif
                         <input type="file" id="gambar_jumbotron" name="gambar_jumbotron"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                            class="w-full bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block p-2.5">
 
                     </div>
 
@@ -499,8 +509,7 @@
                     <!-- Submit Button -->
                     <div class="flex items-center justify-end">
                         <button type="submit"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Simpan
-                            Perubahan</button>
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Edit Perumahan</button>
                     </div>
                 </form>
             </div>

@@ -22,7 +22,7 @@ class RumahController extends Controller
                         $query->where('nama_perumahan', 'like', '%' . $search . '%');
                     });
             })
-            ->get();
+            ->paginate(10);
 
         return view('admin.masterRumah', compact('rumahs', 'perumahans'));
     }
