@@ -16,7 +16,6 @@ class Rumah extends Model
         'gambar_rumah',
         'tipe',
         'id_perumahan',
-        'lantai_rumah',
         'deskripsi',
     ];
 

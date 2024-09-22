@@ -12,8 +12,7 @@ return new class extends Migration
             $table->id('id_rumah');
             $table->string('gambar_rumah');
             $table->string('tipe');
-            $table->foreignId('id_perumahan')->constrained('perumahan');
-            $table->integer('lantai_rumah');
+            $table->foreignId('id_perumahan')->constrained('perumahan', 'id_perumahan');
             $table->text('deskripsi');
             $table->timestamps();
         });

@@ -36,3 +36,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('/message', MessageController::class);
     Route::resource('/master-user', UserController::class);
 });
+
+Route::resource('/master-user', UserController::class);
