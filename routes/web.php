@@ -13,10 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/', HomeController::class);
-
-Route::get('/detail', function () {
-    return view('client.detail');
-});
+Route::get('/detail/{id_perumahan}', [HomeController::class, 'show'])->name('detail');
 
 // Route for showing the dashboard
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
@@ -27,13 +24,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::put('/dashboard/{section}', [DashboardController::class, 'update'])->name('update.section');
-
     Route::resource('/master-fasilitas', FasilitasController::class);
     Route::resource('/master-foto-pembelian', FotoPembelianController::class);
     Route::resource('/master-penghargaan', PenghargaanController::class);
     Route::resource('/master-perumahan', PerumahanController::class);
     Route::resource('/master-rumah', RumahController::class);
     Route::resource('/message', MessageController::class);
+    Route::resource('/master-user', UserController::class);
 });
-
-Route::resource('/master-user', UserController::class);

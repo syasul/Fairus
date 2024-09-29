@@ -48,15 +48,12 @@
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6 text-bold">Master Perumahan</h1>
-
-
-
                 @if(session('success'))
-                <div class="bg-green-500 text-white p-4 rounded mb-4">
+                <div id="flasher-message" class="bg-green-500 text-white p-4 rounded mb-4">
                     {{ session('success') }}
                 </div>
                 @elseif(session('alert'))
-                <div class="bg-yellow-500 text-white p-4 rounded mb-4">
+                <div id="flasher-message" class="bg-yellow-500 text-white p-4 rounded mb-4">
                     {{ session('alert') }}
                 </div>
                 @endif
@@ -105,7 +102,7 @@
                                             </td>
 
                                             <td class="text-center py-3 px-4">{{ $perumahan->nama_perumahan }}</td>
-                                            <td class="text-center py-3 px-4">{{ $perumahan->deskripsi_singkat }}</td>
+                                            <td class="text-center py-3 px-4 w-1/3">{{ $perumahan->deskripsi_singkat }}</td>
                                             <td class="text-center py-3 px-4">
                                                 <div class="flex items-center justify-center gap-3">
                                                     <button
@@ -139,7 +136,7 @@
 
     <!-- Modal Add Perumahan -->
     <div id="add-perumahan-modal" aria-hidden="true"
-    class="fixed inset-0 flex items-center justify-center z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-gray-800 bg-opacity-50">
+    class="fixed inset-0  items-center justify-center z-50 flex hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-gray-800 bg-opacity-50">
     <div class="relative w-full max-w-2xl bg-white rounded-lg shadow-lg">
         <div class="relative bg-white rounded-t-lg border-b border-gray-200">
             <div class="flex items-center justify-between p-4">
@@ -164,13 +161,13 @@
                         <div class="mb-4">
                             <label for="nama_perumahan" class="block text-gray-700">Nama Perumahan</label>
                             <input type="text" name="nama_perumahan"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm " placeholder="Nama Perumahan"
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="deskripsi_singkat" class="block text-gray-700">Deskripsi Singkat</label>
                             <textarea name="deskripsi_singkat"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                                class="w-full px-3 py-2 border h-32 border-gray-300 rounded-lg" placeholder="Deskripsi Singkat"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
@@ -187,14 +184,14 @@
                             <label for="about_perumahan_sub_title" class="block text-gray-700">About Perumahan
                                 Subtitle</label>
                             <input type="text" name="about_perumahan_sub_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm " placeholder="About Perumahan SubTitle"
                                 required>
                         </div>
                         <div class="mb-4">
                             <label for="about_perumahan_content" class="block text-gray-700">About Perumahan
                                 Content</label>
                             <textarea name="about_perumahan_content"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                                class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg" placeholder="About Perumahan Content"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
@@ -206,7 +203,7 @@
                             <label for="alasan_perumahan_content" class="block text-gray-700">Alasan Perumahan
                                 Content</label>
                             <textarea name="alasan_perumahan_content"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                                class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg" placeholder="Alasan Perumahan Content"
                                 required rows="4"></textarea>
                         </div>
                         <div class="mb-4">
@@ -225,46 +222,7 @@
                             <label for="fasilitas_perumahan_title" class="block text-gray-700">Fasilitas Perumahan
                                 Title</label>
                             <input type="text" name="fasilitas_perumahan_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
-                                required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="maps_perumahan_sub_title" class="block text-gray-700">Maps Perumahan
-                                Subtitle</label>
-                            <input type="text" name="maps_perumahan_sub_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
-                                required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="maps_perumahan_content" class="block text-gray-700">Maps Perumahan
-                                Content</label>
-                            <textarea name="maps_perumahan_content"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                                required rows="4"></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label for="maps_perumahan_image" class="block text-gray-700">Maps Perumahan Image</label>
-                            <input type="file" name="maps_perumahan_image"
-                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
-                        </div>
-                        <div class="mb-4">
-                            <label for="pembayaran_perumahan_title" class="block text-gray-700">Pembayaran Perumahan
-                                Title</label>
-                            <input type="text" name="pembayaran_perumahan_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
-                                required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="pembayaran_perumahan_content" class="block text-gray-700">Pembayaran Perumahan
-                                Content</label>
-                            <textarea name="pembayaran_perumahan_content"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                                required rows="4"></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label for="penghargaan_title" class="block text-gray-700">Penghargaan Title</label>
-                            <input type="text" name="penghargaan_title"
-                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm "
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm " placeholder="Fasilitas Perumahan Title"
                                 required>
                         </div>
                         <div class="mb-4">
@@ -277,6 +235,46 @@
                             @endforeach
 
                         </div>
+                        <div class="mb-4">
+                            <label for="maps_perumahan_sub_title" class="block text-gray-700">Maps Perumahan
+                                Subtitle</label>
+                            <input type="text" name="maps_perumahan_sub_title"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm " placeholder="Maps Perumahan Subtitle"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="maps_perumahan_content" class="block text-gray-700">Maps Perumahan
+                                Content</label>
+                            <textarea name="maps_perumahan_content"
+                                class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg" placeholder="Maps Perumahan Content"
+                                required rows="4"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="maps_perumahan_image" class="block text-gray-700">Maps Perumahan Image</label>
+                            <input type="file" name="maps_perumahan_image"
+                                class="mt-1 bg-gray-50 border border-gray-300 sm:text-sm rounded-lg block w-full p-2.5">
+                        </div>
+                        <div class="mb-4">
+                            <label for="pembayaran_perumahan_title" class="block text-gray-700">Pembayaran Perumahan
+                                Title</label>
+                            <input type="text" name="pembayaran_perumahan_title"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm " placeholder="Pembayaran Perumahan Title"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="pembayaran_perumahan_content" class="block text-gray-700">Pembayaran Perumahan
+                                Content</label>
+                            <textarea name="pembayaran_perumahan_content"
+                                class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg" placeholder="Pembayaran Perumahan Content"
+                                required rows="4"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="penghargaan_title" class="block text-gray-700">Penghargaan Title</label>
+                            <input type="text" name="penghargaan_title"
+                                class="mt-1 px-3 py-2 block w-full border border-gray-300 rounded-lg shadow-sm " placeholder="Penghargaan Title"
+                                required>
+                        </div>
+                        
                         <button type="submit"
                             class="px-4 py-2 w-full bg-blue-500 text-white rounded-lg hover:bg-blue-600">Tambah Perumahan</button>
                     </form>
@@ -285,13 +283,10 @@
         </div>
     </div>
 
-
-
-
     <!-- Modal Edit Perumahan -->
     @foreach ($perumahans as $perumahan)
     <div id="edit-perumahan-modal-{{ $perumahan->id_perumahan }}" tabindex="-1" aria-hidden="true"
-        class="fixed inset-0 flex items-center justify-center z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto bg-gray-800 bg-opacity-50">
+        class="fixed inset-0 items-center flex hidden justify-center z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-gray-800 bg-opacity-50">
         <div class="relative w-full max-w-2xl bg-white rounded-lg shadow-lg">
             <div class="relative bg-white rounded-t-lg border-b border-gray-200">
                 <div class="flex items-center justify-between p-4">
@@ -329,7 +324,7 @@
                     <div class="mb-4">
                         <label for="deskripsi_singkat" class="block text-gray-700 font-medium">Deskripsi Singkat</label>
                         <textarea id="deskripsi_singkat" name="deskripsi_singkat"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">{{ $perumahan->deskripsi_singkat }}</textarea>
+                            class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg">{{ $perumahan->deskripsi_singkat }}</textarea>
                     </div>
 
                     <!-- Gambar Perumahan -->
@@ -356,13 +351,7 @@
                     </div>
 
                     <!-- About Perumahan -->
-                    <div class="mb-4">
-                        <label for="about_perumahan_title" class="block text-gray-700 font-medium">Judul About
-                            Perumahan</label>
-                        <input type="text" id="about_perumahan_title" name="about_perumahan_title"
-                            value="{{ $perumahan->about_perumahan_title }}"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                    </div>
+                    
 
                     <div class="mb-4">
                         <label for="about_perumahan_sub_title" class="block text-gray-700 font-medium">Sub Judul About
@@ -376,7 +365,7 @@
                         <label for="about_perumahan_content" class="block text-gray-700 font-medium">Konten About
                             Perumahan</label>
                         <textarea id="about_perumahan_content" name="about_perumahan_content"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">{{ $perumahan->about_perumahan_content }}</textarea>
+                            class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg">{{ $perumahan->about_perumahan_content }}</textarea>
                     </div>
 
                     <div class="mb-4">
@@ -396,7 +385,7 @@
                         <label for="alasan_perumahan_content" class="block text-gray-700 font-medium">Alasan Perumahan
                             Konten</label>
                         <textarea id="alasan_perumahan_content" name="alasan_perumahan_content"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">{{ $perumahan->alasan_perumahan_content }}</textarea>
+                            class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg">{{ $perumahan->alasan_perumahan_content }}</textarea>
                     </div>
 
                     <!-- About Perumahan Images -->
@@ -443,17 +432,6 @@
                         </div>
                         @endforeach
                     </div>
-
-                    <!-- Selected Facilities Display -->
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-medium">Fasilitas Terpilih:</label>
-                        <ul class="list-disc pl-5">
-                            @foreach($perumahan->fasilitas as $selectedFasilitas)
-                            <li>{{ $selectedFasilitas->nama_fasilitas }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-
                     <!-- Maps Perumahan Section -->
                     <div class="mb-4">
                         <label for="maps_perumahan_sub_title" class="block text-gray-700 font-medium">Sub Judul Maps
@@ -467,7 +445,7 @@
                         <label for="maps_perumahan_content" class="block text-gray-700 font-medium">Konten Maps
                             Perumahan</label>
                         <textarea id="maps_perumahan_content" name="maps_perumahan_content"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">{{ $perumahan->maps_perumahan_content }}</textarea>
+                            class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg">{{ $perumahan->maps_perumahan_content }}</textarea>
                     </div>
 
                     <div class="mb-4">
@@ -495,7 +473,7 @@
                         <label for="pembayaran_perumahan_content" class="block text-gray-700 font-medium">Konten
                             Pembayaran Perumahan</label>
                         <textarea id="pembayaran_perumahan_content" name="pembayaran_perumahan_content"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg">{{ $perumahan->pembayaran_perumahan_content }}</textarea>
+                            class="w-full px-3 h-32 py-2 border border-gray-300 rounded-lg">{{ $perumahan->pembayaran_perumahan_content }}</textarea>
                     </div>
 
                     <!-- Penghargaan Title -->
@@ -519,7 +497,7 @@
 
 
     <div id="delete-perumahan-modal-{{ $perumahan->id_perumahan }}" aria-hidden="true"
-        class="fixed hidden inset-0 flex items-center justify-center z-50 overflow-y-auto bg-gray-800 bg-opacity-50">
+        class="fixed flex hidden inset-0 items-center justify-center z-50 overflow-y-auto bg-gray-800 bg-opacity-50">
         <div class="relative w-full max-w-lg mx-4 md:mx-0 bg-white rounded-lg shadow-lg">
             <div class="flex justify-between items-center p-4 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-900">
@@ -559,9 +537,8 @@
     });
 </script>
 
-<!-- AlpineJS -->
+<script src="{{ asset('js/flasher.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-<!-- Font Awesome -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
     integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
 

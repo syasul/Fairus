@@ -1,9 +1,7 @@
 <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
     <div class="mt-6 p-6 flex flex-col justify-center h-20">
         <a href="{{ route('dashboard.index') }}" class="text-white text-3xl font-semibold uppercase hover:text-gray-300 text-center">Fairus</a>
-        <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-            <i class="ri-add-line mr-3"></i> New Report
-        </button>
+        
     </div>
     <nav class="text-white text-sm font-medium mt-10">
         <a href="{{ route('dashboard.index') }}" class="flex items-center {{ Request::routeIs('dashboard.index') ? 'active-nav-link' : 'opacity-75 hover:opacity-100' }} text-white py-4 pl-6 nav-item">

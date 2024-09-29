@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -62,8 +63,19 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $userToDelete = User::find($id);
+
+        $loggedInUser = Auth::user();
+
+        if (!$userToDelete) {
+            return redirect()->route('master-user.index')->with('alert', 'Pengguna tidak ditemukan.');
+        }
+
+        if ($loggedInUser && $loggedInUser->id === $userToDelete->id) {
+            return redirect()->route('master-user.index')->with('alert', 'anda tidak dapat menghapus akun Anda sendiri.');
+        }
+
+        $userToDelete->delete();
 
         return redirect()->route('master-user.index')->with('success', 'User deleted successfully');
     }

@@ -12,12 +12,12 @@ return new class extends Migration
             $table->id();
 
             // Foreign key ke tabel 'fasilitas'
-            $table->unsignedInteger('id_fasilitas');
-            $table->foreign('id_fasilitas')->references('id')->on('fasilitas')->onDelete('cascade');
+            $table->unsignedBigInteger('id_fasilitas');
+            $table->foreign('id_fasilitas')->references('id_fasilitas')->on('fasilitas')->onDelete('cascade');
 
             // Foreign key ke tabel 'perumahan'
-            $table->unsignedInteger('id_perumahan');
-            $table->foreign('id_perumahan')->references('id')->on('perumahan')->onDelete('cascade');
+            $table->unsignedBigInteger('id_perumahan');
+            $table->foreign('id_perumahan')->references('id_perumahan')->on('perumahan')->onDelete('cascade');
 
             $table->timestamps();
             // $table->id();

@@ -32,7 +32,7 @@
         <div class="bg-red-500 text-white p-4 rounded mb-4">
             <ul>
                 @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <li id="flasher-message">{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
@@ -43,4 +43,6 @@
     </form>
   </div>
 </div>
+<script src="{{ asset('js/flasher.js') }}"></script>
+
 @endsection

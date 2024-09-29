@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Perumahan;
 use App\Models\Fasilitas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class PerumahanController extends Controller
 {
@@ -102,25 +104,21 @@ class PerumahanController extends Controller
 
         // Simpan data perumahan ke database
 
+        $perumahan->save();
+
 
         $perumahan->fasilitas()->sync($request->fasilitas);
-
-        // Sinkronisasi fasilitas jika ada
-        if ($request->has('fasilitas')) {
-            $validFasilitasIds = Fasilitas::pluck('id_fasilitas')->toArray(); // Ambil id_fasilitas dari tabel fasilitas
-            $selectedFasilitas = collect($request->fasilitas)->intersect($validFasilitasIds)->toArray(); // Validasi fasilitas yang dipilih
-            $perumahan->fasilitas()->sync($selectedFasilitas); // Sinkronisasi ke tabel pivot
-        }
-
 
         // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Data Perumahan berhasil ditambahkan');
     }
 
-
     public function update(Request $request, $id)
     {
+        // Temukan perumahan berdasarkan ID
         $perumahan = Perumahan::findOrFail($id);
+
+        // Validasi input
         $data = $request->validate([
             'nama_perumahan' => 'required|string|max:255',
             'deskripsi_singkat' => 'required|string',
@@ -141,25 +139,87 @@ class PerumahanController extends Controller
             'penghargaan_title' => 'required|string|max:255',
         ]);
 
+        // Update perumahan dengan data yang divalidasi
         $perumahan->update($data);
 
-        // Handle optional image uploads
+        // Handle optional image uploads (fungsi baru yang akan ditambahkan)
         $this->handleImageUploads($request, $perumahan);
 
-        $perumahan->save();
+        // Sinkronisasi fasilitas perumahan
+        $perumahan->fasilitas()->sync($request->fasilitas);
 
-
-        // Update associated facilities
-        if ($request->has('fasilitas')) {
-            $validFasilitasIds = Fasilitas::pluck('id_fasilitas')->toArray();
-            $selectedFasilitas = array_filter($request->fasilitas, function ($id_fasilitas) use ($validFasilitasIds) {
-                return in_array($id_fasilitas, $validFasilitasIds);
-            });
-            $perumahan->fasilitas()->sync($selectedFasilitas);
-        }
-
+        // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Data Perumahan berhasil diupdate');
     }
+
+    public function handleImageUploads(Request $request, $perumahan)
+    {
+        // Gambar Perumahan
+        if ($request->hasFile('gambar_perumahan')) {
+            // Hapus gambar lama jika ada
+            if ($perumahan->gambar_perumahan && Storage::exists('public/Perumahan/' . $perumahan->gambar_perumahan)) {
+                Storage::delete('public/Perumahan/' . $perumahan->gambar_perumahan);
+            }
+            // Simpan gambar baru
+            $fileName = time() . '_' . $request->file('gambar_perumahan')->getClientOriginalName();
+            $request->file('gambar_perumahan')->storeAs('public/Perumahan', $fileName);
+            $perumahan->gambar_perumahan = $fileName;
+        }
+
+        // Gambar Jumbotron
+        if ($request->hasFile('gambar_jumbotron')) {
+            if ($perumahan->gambar_jumbotron && Storage::exists('public/Perumahan/' . $perumahan->gambar_jumbotron)) {
+                Storage::delete('public/Perumahan/' . $perumahan->gambar_jumbotron);
+            }
+            $fileName = time() . '_' . $request->file('gambar_jumbotron')->getClientOriginalName();
+            $request->file('gambar_jumbotron')->storeAs('public/Perumahan', $fileName);
+            $perumahan->gambar_jumbotron = $fileName;
+        }
+
+        // Gambar About Perumahan
+        if ($request->hasFile('about_perumahan_image')) {
+            if ($perumahan->about_perumahan_image && Storage::exists('public/Perumahan/' . $perumahan->about_perumahan_image)) {
+                Storage::delete('public/Perumahan/' . $perumahan->about_perumahan_image);
+            }
+            $fileName = time() . '_' . $request->file('about_perumahan_image')->getClientOriginalName();
+            $request->file('about_perumahan_image')->storeAs('public/Perumahan', $fileName);
+            $perumahan->about_perumahan_image = $fileName;
+        }
+
+        // Gambar About Perumahan 1
+        if ($request->hasFile('about_perumahan_image1')) {
+            if ($perumahan->about_perumahan_image1 && Storage::exists('public/Perumahan/' . $perumahan->about_perumahan_image1)) {
+                Storage::delete('public/Perumahan/' . $perumahan->about_perumahan_image1);
+            }
+            $fileName = time() . '_' . $request->file('about_perumahan_image1')->getClientOriginalName();
+            $request->file('about_perumahan_image1')->storeAs('public/Perumahan', $fileName);
+            $perumahan->about_perumahan_image1 = $fileName;
+        }
+
+        // Gambar About Perumahan 2
+        if ($request->hasFile('about_perumahan_image2')) {
+            if ($perumahan->about_perumahan_image2 && Storage::exists('public/Perumahan/' . $perumahan->about_perumahan_image2)) {
+                Storage::delete('public/Perumahan/' . $perumahan->about_perumahan_image2);
+            }
+            $fileName = time() . '_' . $request->file('about_perumahan_image2')->getClientOriginalName();
+            $request->file('about_perumahan_image2')->storeAs('public/Perumahan', $fileName);
+            $perumahan->about_perumahan_image2 = $fileName;
+        }
+
+        // Gambar Maps Perumahan
+        if ($request->hasFile('maps_perumahan_image')) {
+            if ($perumahan->maps_perumahan_image && Storage::exists('public/Perumahan/' . $perumahan->maps_perumahan_image)) {
+                Storage::delete('public/Perumahan/' . $perumahan->maps_perumahan_image);
+            }
+            $fileName = time() . '_' . $request->file('maps_perumahan_image')->getClientOriginalName();
+            $request->file('maps_perumahan_image')->storeAs('public/Perumahan', $fileName);
+            $perumahan->maps_perumahan_image = $fileName;
+        }
+
+        // Simpan perumahan dengan update gambar
+        $perumahan->save();
+    }
+
 
     public function destroy($id)
     {
@@ -167,16 +227,5 @@ class PerumahanController extends Controller
         $perumahan->delete();
 
         return redirect()->back()->with('success', 'Data Perumahan berhasil dihapus');
-    }
-
-    private function handleImageUploads(Request $request, Perumahan $perumahan)
-    {
-        $images = ['gambar_perumahan', 'gambar_jumbotron', 'about_perumahan_image', 'about_perumahan_image1', 'about_perumahan_image2', 'maps_perumahan_image'];
-
-        foreach ($images as $image) {
-            if ($request->hasFile($image)) {
-                $perumahan->$image = $request->file($image)->store('Perumahan', 'public');
-            }
-        }
     }
 }

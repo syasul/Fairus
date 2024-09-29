@@ -52,14 +52,14 @@
         </div>
     </header>
     <!-- section Hero -->
-    <section id="home" class="pt-36 bg-lightGrey pb-36">
+    <section id="home" class="pt-56 pb-56 h-5/6 bg-lightGrey">
         <div class="container">
             <div class="flex flex-wrap">
                 <div class="w-full self-center px-4 lg:w-1/2 lg:self-center" id="homeDisplay">
                     <h4 class="text-base font-dark md:text-xl uppercase">{{ $homeSection->content ?? 'Hi, I am Fairus Permatasari' }}</h4>
                     <h1 class="font-bold text-dark text-4xl lg:text-6xl" id="homeSubtitle">{{ $homeSection->subcontent ?? 'I Work as Sales Marketing in a Company.' }}</h1>
                     <p class="text-dark mt-2 leading-relaxed text-medium mb-10 text-lg lg:text-2xl">{{ $homeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.' }}</p>
-                    <a href="#" class="text-base font-medium bg-primaryGrey px-8 py-3 text-white rounded-md ">Get
+                    <a href="https://wa.me/c/6281233579295" class="text-base font-medium bg-primaryGrey px-8 py-3 text-white rounded-md ">Get
                         In
                         Touch</a>
                 </div>
@@ -72,7 +72,7 @@
         </div>
     </section>
     <!-- about me section -->
-    <section id="aboutMe" class="pt-32 pb-32">
+    <section id="aboutMe" class="pt-36 pb-36">
         <div class="container">
             <div class="flex flex-wrap">
                 <div class="w-full self-center px-4 md:w-full lg:w-1/3 lg:self-start">
@@ -83,56 +83,39 @@
                 <div class="w-full self-center mt-10 px-4 md:w-full lg:mt-0 lg:w-2/3 lg:self-start">
                     <h4 class="text-primaryGrey font-semibold text-lg uppercase">{{ $aboutMeSection->content ?? 'About Me' }}</h4>
                     <h1 class="font-medium text-3xl lg:text-4xl mt-2">{{ $aboutMeSection->subcontent ?? 'Professional Sales Marketing' }}</h1>
-                    <p class="text-base text-dark mt-4 leading-relaxed md:text-lg">{{ $aboutMeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius faucibus massa sollicitudin amet augue.' }}</p>
+                    <p class="text-base text-dark mt-4 leading-relaxed md:text-lg"> {!! nl2br(e($aboutMeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius faucibus massa sollicitudin amet augue.')) !!}</p>
                 </div>
             </div>
         </div>
     </section>
-    <!-- proyek section -->
-    <section id="proyek" class="pt-32 pb-32">
+   <!-- Proyek Section -->
+    <section id="proyek" class="pt-36 pb-36">
         <div class="container mx-auto px-4">
             <div class="header-proyek w-full text-center mb-10">
-                <h4 class="text-primaryGrey font-semibold text-lg uppercase">PROYEK UNGGULAN YANG SEDANG
-                    DIPASARKAN
-                </h4>
+                <h4 class="text-primaryGrey font-semibold text-lg uppercase">PROYEK UNGGULAN YANG SEDANG DIPASARKAN</h4>
                 <h1 class="text-dark font-medium text-3xl lg:text-4xl">Penawaran Terbaik untuk Kebutuhan Anda</h1>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img class="w-full" src="{{ asset('images/image-home-p1.jpg')}}" alt="Project 1">
-                    <div class="p-6">
-                        <div class="font-medium text-xl lg:text-3xl mb-2">Alana Regency Gunung Sari</div>
-                        <a href="detail.html"
-                        class="font-medium text-base text-dark border-b-2 border-primaryGrey md:xl">Show
-                        Detail <span class="inline-block"><img src="{{ asset('images/ic-arrow-pg1.png')}}" alt="Arrow"
-                                class="w-5 pl-2"></span></a>
+            <div class="flex justify-center">
+                <!-- Grid container for cards -->
+                <div class="grid grid-cols-1 gap-5 w-full max-w-screen-lg justify-items-center sm:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($perumahans as $perumahan)
+                    <div class="rounded-lg overflow-hidden shadow-lg w-full sm:w-auto max-w-sm lg:max-w-md">
+                        <img class="w-full object-cover aspect-video" src="{{ asset('storage/Perumahan/' . $perumahan->gambar_perumahan) }}" alt="Project 1">
+                        <div class="p-6">
+                            <div class="font-medium text-xl lg:text-3xl mb-2">{{ $perumahan->nama_perumahan }}</div>
+                            <a href="{{ route('detail', $perumahan->id_perumahan)}}" class="font-medium text-base text-dark border-b-2 border-primaryGrey md:text-xl">Show Detail 
+                                <span class="inline-block"><img src="{{ asset('images/ic-arrow-pg1.png')}}" alt="Arrow" class="w-5 pl-2"></span>
+                            </a>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img class="w-full" src="{{ asset('images/image-home-p1.jpg')}}" alt="Project 2">
-                    <div class="p-6">
-                        <div class="font-medium text-xl lg:text-3xl mb-2">Alana Regency Gunung Sari</div>
-                        <a href="detail.html"
-                            class="font-medium text-base text-dark border-b-2 border-primaryGrey md:xl">Show
-                            Detail <span class="inline-block"><img src="{{ asset('images/ic-arrow-pg1.png')}}" alt="Arrow"
-                                    class="w-5 pl-2"></span></a>
-                    </div>
-                </div>
-                <div class="rounded-lg overflow-hidden shadow-lg">
-                    <img class="w-full" src="{{ asset('images/image-home-p1.jpg')}}" alt="Project 3">
-                    <div class="p-6">
-                        <div class="font-medium text-xl lg:text-3xl mb-2">Alana Regency Gunung Sari</div>
-                        <a href="detail.html"
-                            class="font-medium text-base text-dark border-b-2 border-primaryGrey md:xl">Show
-                            Detail <span class="inline-block"><img src="{{ asset('images/ic-arrow-pg1.png')}}" alt="Arrow"
-                                    class="w-5 pl-2"></span></a>
-                    </div>
-                </div>
-            </div>
+            </div>            
         </div>
     </section>
+
     <!-- contact section -->
-    <section id="contact" class="pt-32 pb-32">
+    <section id="contact" class="pt-36 pb-36">
         <div class="container">
             <div class="header-contact w-full text-center">
                 <h4 class="text-primaryGrey font-semibold text-lg uppercase">HUBUNGI SAYA</h4>
@@ -190,12 +173,12 @@
                                 Message
                             </label>
                             <textarea
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
+                                class="bg-gray-50 border h-32 border-gray-300 text-gray-900 sm:text-sm rounded-l block w-full p-2.5"
                                 id="grid-message" placeholder="Message" name="message"></textarea>
                         </div>
                     </div>
                     
-                    <div class="text-center">
+                    <div class="text-center mt-10">
                         <button type="submit"
                             class="text-base font-medium bg-primaryGrey px-8 py-3 text-white rounded-md">
                             Send
@@ -251,6 +234,6 @@
             colorWords(homeSubtitle, 'blue', 'blue');
         }
     </script>
-    
+    <script src="{{ asset('js/smoothScroll.js') }}"></script>
     <script src="{{ asset('js/hamburger.js')}}"></script>
 @endsection

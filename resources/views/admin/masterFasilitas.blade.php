@@ -23,15 +23,15 @@
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6 text-bold">Master Fasilitas</h1>
-
+                
                 @if(session('success'))
-                    <div class="bg-green-500 text-white p-4 rounded mb-4">
-                        {{ session('success') }}
-                    </div>
+                <div id="flasher-message" class="bg-green-500 text-white p-4 rounded mb-4">
+                    {{ session('success') }}
+                </div>
                 @elseif(session('alert'))
-                    <div class="bg-yellow-500 text-white p-4 rounded mb-4">
-                        {{ session('alert') }}
-                    </div>
+                <div id="flasher-message" class="bg-yellow-500 text-white p-4 rounded mb-4">
+                    {{ session('alert') }}
+                </div>
                 @endif
 
                 <div class="w-full mt-6">
@@ -110,11 +110,11 @@
                         @csrf
                         <div>
                             <label for="gambar_fasilitas" class="text-sm font-medium text-gray-900 block mb-2 ">Image Fasilitas</label>
-                            <input type="file" name="gambar_fasilitas" id="gambar_fasilitas" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Image URL" required>
+                            <input type="file" name="gambar_fasilitas" id="gambar_fasilitas" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm  g block w-full p-2.5" placeholder="Image URL" required>
                         </div>
                         <div>
                             <label for="nama_fasilitas" class="text-sm font-medium text-gray-900 block mb-2 ">Nama Fasilitas</label>
-                            <input type="text" name="nama_fasilitas" id="nama_fasilitas" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" required>
+                            <input type="text" name="nama_fasilitas" id="nama_fasilitas" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Nama Fasilitas" required>
                         </div>
                        
                         <div class="flex justify-center">
@@ -188,6 +188,7 @@
     </div>
 
 </div>
+<script src="{{ asset('js/flasher.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>

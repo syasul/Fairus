@@ -30,13 +30,13 @@
 
                 <!-- Display messages -->
                 @if(session('success'))
-                    <div class="bg-green-500 text-white p-4 rounded mb-4">
-                        {{ session('success') }}
-                    </div>
+                <div id="flasher-message" class="bg-green-500 text-white p-4 rounded mb-4">
+                    {{ session('success') }}
+                </div>
                 @elseif(session('alert'))
-                    <div class="bg-yellow-500 text-white p-4 rounded mb-4">
-                        {{ session('alert') }}
-                    </div>
+                <div id="flasher-message" class="bg-yellow-500 text-white p-4 rounded mb-4">
+                    {{ session('alert') }}
+                </div>
                 @endif
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 py-4">
@@ -120,15 +120,15 @@
                                     @method('PUT')
                                     <div class="mb-4">
                                         <label class="block text-gray-700">Content:</label>
-                                        <textarea name="content" rows="2" class="w-full border rounded p-2">{{ $homeSection->content ?? '' }}</textarea>
+                                        <textarea name="content" rows="2" class="w-full border rounded p-2 h-32">{{ $homeSection->content ?? '' }}</textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="block text-gray-700">Subcontent:</label>
-                                        <textarea name="subcontent" rows="2" class="w-full border rounded p-2">{{ $homeSection->subcontent ?? '' }}</textarea>
+                                        <textarea name="subcontent" rows="2" class="w-full border rounded p-2 h-32">{{ $homeSection->subcontent ?? '' }}</textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="block text-gray-700">Description:</label>
-                                        <textarea name="description" rows="4" class="w-full border rounded p-2">{{ $homeSection->description ?? '' }}</textarea>
+                                        <textarea name="description" rows="4" class="w-full border rounded p-2 h-32">{{ $homeSection->description ?? '' }}</textarea>
                                     </div>
                                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                                     <button type="button" onclick="toggleEditForm('home')" class="bg-gray-500 text-white px-4 py-2 rounded ml-2">Cancel</button>
@@ -190,22 +190,24 @@
                                 <div id="aboutMeDisplay">
                                     <h4 class="text-primaryGrey font-semibold text-lg uppercase">{{ $aboutMeSection->content ?? 'About Me' }}</h4>
                                     <h1 class="font-medium text-3xl lg:text-4xl mt-2">{{ $aboutMeSection->subcontent ?? 'Professional Sales Marketing' }}</h1>
-                                    <p class="text-base text-dark mt-4 leading-relaxed md:text-lg">{{ $aboutMeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius faucibus massa sollicitudin amet augue.' }}</p>
+                                    <p class="text-base text-dark mt-4 leading-relaxed md:text-lg"> {!! nl2br(e($aboutMeSection->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius faucibus massa sollicitudin amet augue.')) !!}</p>
+                                    
                                 </div>
                                 <form id="aboutMeForm" class="hidden mt-4" method="POST" action="{{ route('update.section', ['section' => 'aboutMe']) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-4">
                                         <label class="block text-gray-700">Content:</label>
-                                        <textarea name="content" rows="2" class="w-full border rounded p-2">{{ $aboutMeSection->content ?? '' }}</textarea>
+                                        <textarea name="content" rows="2" class="w-full border rounded p-2 h-32">{{ $aboutMeSection->content ?? '' }}</textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="block text-gray-700">Subcontent:</label>
-                                        <textarea name="subcontent" rows="2" class="w-full border rounded p-2">{{ $aboutMeSection->subcontent ?? '' }}</textarea>
+                                        <textarea name="subcontent" rows="2" class="w-full border rounded p-2 h-32">{{ $aboutMeSection->subcontent ?? '' }}</textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="block text-gray-700">Description:</label>
-                                        <textarea name="description" rows="4" class="w-full border rounded p-2">{{ $aboutMeSection->description ?? '' }}</textarea>
+                                        <textarea name="description" rows="4" class="w-full border rounded p-2 h-32">{{ $aboutMeSection->description ?? '' }}</textarea>
+                                        
                                     </div>
                                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                                     <button type="button" onclick="toggleEditForm('aboutMe')" class="bg-gray-500 text-white px-4 py-2 rounded ml-2">Cancel</button>
@@ -218,6 +220,16 @@
             </main>
         </div>
     </div>
+
+    <script>
+        const textarea = document.getElementById("myTextarea");
+        const output = document.getElementById("output");
+    
+        textarea.addEventListener("input", () => {
+            // Mengganti baris baru (\n) dengan <br> untuk ditampilkan di HTML
+            output.innerHTML = textarea.value.replace(/\n/g, "<br>");
+        });
+    </script>
 
     <script>
         var homeTitle = document.getElementById('homeTitle');
@@ -258,6 +270,7 @@
             displayDiv.innerHTML = content;
         }
     </script>
+    <script src="{{ asset('js/flasher.js') }}"></script>
     <!-- AlpineJS -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!-- Font Awesome -->

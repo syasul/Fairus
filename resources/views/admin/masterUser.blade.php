@@ -31,13 +31,13 @@
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6 text-bold">Master User</h1>
                 @if(session('success'))
-                    <div class="bg-green-500 text-white p-4 rounded mb-4">
-                        {{ session('success') }}
-                    </div>
+                <div id="flasher-message" class="bg-green-500 text-white p-4 rounded mb-4">
+                    {{ session('success') }}
+                </div>
                 @elseif(session('alert'))
-                    <div class="bg-yellow-500 text-white p-4 rounded mb-4">
-                        {{ session('alert') }}
-                    </div>
+                <div id="flasher-message" class="bg-yellow-500 text-white p-4 rounded mb-4">
+                    {{ session('alert') }}
+                </div>
                 @endif
 
                 <div class="w-full mt-6">
@@ -189,7 +189,8 @@
     </div>
     @endforeach
 </div>
-</div>
+<script src="{{ asset('js/flasher.js') }}"></script>
+
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 @endsection
