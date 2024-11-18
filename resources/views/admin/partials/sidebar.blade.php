@@ -20,6 +20,10 @@
             <i class="ri-image-add-line mr-3"></i>
             Master Fasilitas
         </a>
+        <a href="{{ route('master-video.index') }}" class="flex items-center {{ Request::routeIs('master-video.index') ? 'active-nav-link' : 'opacity-75 hover:opacity-100' }} text-white py-4 pl-6 nav-item">
+            <i class="ri-video-add-line mr-3"></i>
+            Master Video
+        </a>
         <a href="{{ route('master-user.index') }}" class="flex items-center {{ Request::routeIs('master-user.index') ? 'active-nav-link' : 'opacity-75 hover:opacity-100' }} text-white py-4 pl-6 nav-item">
             <i class="ri-user-line mr-3"></i>
             Master User

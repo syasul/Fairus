@@ -8,6 +8,7 @@ use App\Models\FotoPembelian;
 use App\Models\Penghargaan;
 use App\Models\Rumah;
 use App\Models\Sales;
+use App\Models\Video;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -26,6 +27,7 @@ class HomeController extends Controller
         // Mengambil data perumahan berdasarkan ID
         $perumahans = Perumahan::findOrFail($id_perumahan);
 
+        $video = Video::where('id_perumahan', $id_perumahan)->first();
 
         $fasilitas = $perumahans->fasilitas;
         $rumahs = $perumahans->rumah;
@@ -54,6 +56,6 @@ class HomeController extends Controller
         $thirdPembayaran = array_slice($pembayaranContent, $thirdIndexPembayaran * 2);
 
         // Mengirim data ke view
-        return view('client.detail', compact('perumahans', 'firstHalfAlasan', 'secondHalfAlasan', 'firstHalfMaps', 'secondHalfMaps', 'firstPembayaran', 'secondPembayaran', 'thirdPembayaran', 'fasilitas', 'penghargaans', 'fotoPembelians', 'rumahs'));
+        return view('client.detail', compact('perumahans', 'firstHalfAlasan', 'secondHalfAlasan', 'firstHalfMaps', 'secondHalfMaps', 'firstPembayaran', 'secondPembayaran', 'thirdPembayaran', 'fasilitas', 'penghargaans', 'fotoPembelians', 'rumahs', 'video'));
     }
 }

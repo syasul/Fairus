@@ -43,6 +43,11 @@ class Perumahan extends Model
         return $this->hasMany(Rumah::class, 'id_perumahan', 'id_perumahan');
     }
 
+    public function video()
+    {
+        return $this->hasOne(Video::class, 'id_perumahan', 'id_perumahan');
+    }
+
     public static function boot()
     {
         parent::boot();

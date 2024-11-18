@@ -53,10 +53,18 @@
                         {{ $perumahans->nama_perumahan }}
                     </h1>
                     <p class="mt-6 text-md lg:text-lg text-lightGrey">{{ $perumahans->deskripsi_singkat }}</p>
-                    <a href="https://wa.me/c/6281233579295"
-                        class="mt-8 inline-block px-7 py-3 bg-primaryGrey text-white font-medium rounded-lg  transition duration-300 ease-in-out">
-                        Hubungi Sekarang
-                    </a>
+                    <div class="flex items-center mt-8 space-x-4">
+                        <a href="https://wa.me/c/6281233579295"
+                            class="inline-block px-7 py-3 bg-primaryGrey text-white font-medium rounded-lg transition duration-300 ease-in-out">
+                            Hubungi Sekarang
+                        </a>
+                        
+                        <button
+                            class="inline-block px-4 py-3 text-white font-medium rounded-full transition duration-300 ease-in-out bg-primaryGrey"
+                            onclick="openVideoModal()">
+                            <i class="ri-play-fill"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -388,6 +396,25 @@
         </div>
     </div>
 </section>
+
+<div id="videoModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-75 flex items-center justify-center">
+    <div class="relative w-full max-w-4xl bg-white rounded-lg">
+        <!-- Tombol Close -->
+        <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-900" onclick="closeVideoModal()">
+            &times;
+        </button>
+        <!-- Video -->
+        <div class="aspect-w-16 aspect-h-9">
+
+                <iframe src="{{ asset('storage/Video/' . $video->video) }}" type="video/mp4" class="w-full rounded-lg"></iframe>
+                Browser Anda tidak mendukung pemutaran video.
+            
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('js/modalVideo.js')}}"></script>
+
 
 
 <script src="{{ asset('js/sliderCardJs.js') }}"></script>
